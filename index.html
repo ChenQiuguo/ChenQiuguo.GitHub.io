@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>秋果的个人网站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+        }
+        body {
+            background-color: #66CCFF;
+            color: #1d1d1f;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            line-height: 1.6;
+        }
+        .welcome-top-area {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+        .ciallo-text {
+            font-size: 34px;
+            font-weight: 500;
+            color: #ffffff;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+        .title-text {
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+        .intro-text {
+            font-size: 15px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.9;
+            margin-top: 20px;
+            letter-spacing: 0.3px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 18px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+        }
+        .section-title {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        .item-list {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .item-tag {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 12px;
+            font-size: 13px;
+            color: #333;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+        .item-tag:hover {
+            background: rgba(255,255,255,0.95);
+        }
+        .contact-wrap {
+            text-align: center;
+            margin: 10px 0 30px;
+        }
+        .contact-btn {
+            background: #007AFF;
+            color: #fff;
+            border: none;
+            border-radius: 9999px;
+            padding: 11px 36px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .contact-btn:hover {
+            background: #0066CC;
+            transform: scale(1.02);
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-top-area">
+        <div class="ciallo-text">你好</div>
+        <div class="title-text">欢迎来到秋果的个人网站</div>
+        <div class="intro-text">你好，我是秋果。<br>一名喜欢钻研硬件、游戏技术与编程的学生。<br>闲暇时喜欢追番，偏爱细腻的校园向故事；游戏方面常玩米哈游和鹰角的游戏，而且非常期待米哈游的新作；也喜欢研究各种硬件、游戏配置与性能优化相关内容。</div>
+    </div>
+
+    <div class="card">
+        <div class="section-title">我的账号</div>
+        <div class="item-list">
+            <a class="item-tag" href="https://space.bilibili.com/3546609252043157" target="_blank">Bilibili</a>
+            <a class="item-tag" href="https://github.com/frierensummer" target="_blank">GitHub</a>
+            <a class="item-tag" href="https://chenqiuguo.github.io" target="_blank">个人主页</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-title">我玩的游戏</div>
+        <div class="item-list">
+            <a class="item-tag" href="https://ys.mihoyo.com/" target="_blank">原神</a>
+            <a class="item-tag" href="https://sr.mihoyo.com/" target="_blank">崩坏：星穹铁道</a>
+            <a class="item-tag" href="https://zzz.mihoyo.com/" target="_blank">绝区零</a>
+            <a class="item-tag" href="https://endfield.hypergryph.com/" target="_blank">明日方舟：终末地</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-title">术力口</div>
+        <div class="item-list">
+            <a class="item-tag" href="https://space.bilibili.com/21384367" target="_blank">洛天依</a>
+            <a class="item-tag" href="https://space.bilibili.com/39932" target="_blank">初音未来</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-title">我看的动漫</div>
+        <div class="item-list">
+            <a class="item-tag" href="https://www.bilibili.com/video/BV1CHoLYAEP3/" target="_blank">败犬女主太多了</a>
+            <a class="item-tag" href="https://www.bilibili.com/bangumi/media/md4340/" target="_blank">中二病也要谈恋爱</a>
+            <a class="item-tag" href="https://www.bilibili.com/bangumi/media/md21087073/" target="_blank">葬送的芙莉莲</a>
+            <a class="item-tag" href="https://www.bilibili.com/bangumi/media/md28232844/" target="_blank">邻家天使大人</a>
+            <a class="item-tag" href="https://www.bilibili.com/bangumi/media/md28231840/" target="_blank">堀与宫村</a>
+            <a class="item-tag" href="https://www.bilibili.com/bangumi/media/md22053031/" target="_blank">邻桌艾莉同学</a>
+            <a class="item-tag" href="https://www.bilibili.com/bangumi/media/md3398/" target="_blank">冰菓</a>
+            <a class="item-tag" href="https://www.bilibili.com/bangumi/media/md8892/" target="_blank">紫罗兰永恒花园</a>
+            <a class="item-tag" href="https://www.bilibili.com/bangumi/media/md22097455/" target="_blank">亚托莉—我挚爱的时光</a>
+        </div>
+    </div>
+
+    <div class="contact-wrap">
+        <button class="contact-btn" onclick="showContact()">联系我</button>
+    </div>
+
+    <div class="footer">
+        Copyright © 2026 Qiuguo | Powered by GitHub
+    </div>
+
+    <script>
+        function showContact(){
+            alert("邮箱：cqg110815@outlook.com\n微信：frierensummer");
+        }
+    </script>
+</body>
+</html>
