@@ -1,6 +1,6 @@
 # Ciallo～(∠・ω< )⌒★
 
-> 一个用纯 HTML/CSS 写的个人主页，部署在 GitHub Pages 上。
+> 一个用纯 HTML/CSS 写的个人主页，部署在 GitHub Pages 上，里面藏了两个只有改代码的人才知道的彩蛋。
 
 ## 这是什么
 
@@ -26,18 +26,24 @@
 ## 仓库结构
 
 ```
-├── index.html                  # 个人主页（唯一入口，共 1314 行）
-├── LAYOUT_LOCK.md              # 行号锁定规则说明
+├── index.html                  # 个人主页（唯一入口，共 1314 行，别乱动行数！）
+├── LAYOUT_LOCK.md              # 彩蛋行号锁定规则说明
 ├── lock_layout.py              # 校验/修复 index.html 行号的工具
 ├── .github/workflows/
 │   ├── static.yml              # 部署静态站点到 GitHub Pages
 │   └── jekyll-gh-pages.yml     # Jekyll 备用部署流程
+├── 浅色                        # Windows 注册表脚本：切换系统为浅色主题
 └── ab92be07852a1f7746dc3c9a2301173f.txt
 ```
 
 ## 修改 `index.html` 前必读
 
-`index.html` **总行数必须恰好是 1314 行**，且文件里有几个特定注释的行号是固定的，改动时需要保持它们的位置不变。
+`index.html` **总行数必须恰好是 1314 行**，且以下两个彩蛋注释的行号是固定的：
+
+| 行号 | 内容 |
+|---|---|
+| 520 | `<!--I LOVE U-->` |
+| 1314 | `<!--不是因为可爱才喜欢上她的，而是喜欢上她才发现她的可爱-->` |
 
 第 521 至 1313 行是 793 行缓冲空行，用于吸收正文增删带来的行数涨落。
 
@@ -47,7 +53,7 @@
 # 只校验，不改文件
 python lock_layout.py check index.html
 
-# 自动修复：复位注释位置 + 调整缓冲空行使总行数回到 1314
+# 自动修复：复位彩蛋位置 + 调整缓冲空行使总行数回到 1314
 python lock_layout.py fix index.html
 
 # 查看当前布局概览
