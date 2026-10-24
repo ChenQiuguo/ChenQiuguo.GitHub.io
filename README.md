@@ -26,7 +26,7 @@
 ## 仓库结构
 
 ```
-├── index.html                  # 个人主页（唯一入口，共 1314 行）
+├── index.html                  # 个人主页（唯一入口）
 ├── LAYOUT_LOCK.md              # 行号锁定规则说明
 ├── lock_layout.py              # 校验/修复 index.html 行号的工具
 ├── .github/workflows/
@@ -37,9 +37,7 @@
 
 ## 修改 `index.html` 前必读
 
-`index.html` **总行数必须恰好是 1314 行**，且文件里有几个特定注释的行号是固定的，改动时需要保持它们的位置不变。
-
-第 521 至 1313 行是 793 行缓冲空行，用于吸收正文增删带来的行数涨落。
+`index.html` 的总行数是锁死的，文件里有几个特定注释的行号也是固定的，改动时需要保持它们的位置不变。改动前先跑一下 `lock_layout.py check` 确认当前状态，改完再跑 `lock_layout.py fix` 自动复位即可。
 
 改完 `index.html` 后，在仓库根目录运行：
 
@@ -47,7 +45,7 @@
 # 只校验，不改文件
 python lock_layout.py check index.html
 
-# 自动修复：复位注释位置 + 调整缓冲空行使总行数回到 1314
+# 自动修复：复位注释位置 + 调整行数
 python lock_layout.py fix index.html
 
 # 查看当前布局概览
