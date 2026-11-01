@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>页面走丢了 · ChenQiuguo</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{
+    --ink:#f1eef8; --muted:#9d9ab8; --gold:#e8cfa0; --gold-2:#c2a06a;
+    --serif:"Songti SC","STSong","Noto Serif SC","SimSun",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    min-height:100svh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px;
+    text-align:center;
+    font-family:var(--sans);
+    color:var(--ink);
+    background:
+      radial-gradient(900px 620px at 72% -10%, rgba(143,134,240,.20), transparent 62%),
+      radial-gradient(700px 520px at 10% 6%, rgba(255,185,203,.07), transparent 60%),
+      #060919;
+  }
+  .box{max-width:460px}
+  .code{
+    font-family:var(--serif);
+    font-size:clamp(56px,16vw,96px);
+    line-height:1;
+    letter-spacing:.1em;
+    background:linear-gradient(175deg,#fffdf7,#f2e2c2 55%,#cbb086);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .title{
+    font-family:var(--serif);
+    font-size:clamp(18px,4.6vw,24px);
+    font-weight:400;
+    letter-spacing:.16em;
+    margin:18px 0 12px;
+  }
+  .desc{
+    font-size:13.5px;
+    line-height:2;
+    color:var(--muted);
+    margin-bottom:32px;
+  }
+  .links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  a{
+    font-size:12.5px;
+    letter-spacing:.16em;
+    text-decoration:none;
+    color:var(--gold);
+    border:1px solid rgba(232,207,160,.40);
+    border-radius:999px;
+    padding:11px 26px;
+    transition:background .3s,color .3s;
+  }
+  a:hover{background:rgba(232,207,160,.14);color:#fff6e4}
+</style>
+<script>
+  /* 旧链接 /LinZhixuan/ 大小写不一致时，转到新的小写地址 */
+  (function () {
+    var p = location.pathname;
+    if (/^\/LinZhixuan(\/|$)/i.test(p)) {
+      location.replace(p.replace(/^\/LinZhixuan/i, "/linzhixuan") + location.search + location.hash);
+    }
+  })();
+</script>
+</head>
+<body>
+  <main class="box">
+    <p class="code">404</p>
+    <h1 class="title">这一页不存在</h1>
+    <p class="desc">链接可能写错了，或者这一页已经被换走了。<br>要不先回首页看看？</p>
+    <nav class="links">
+      <a href="/">回首页</a>
+      <a href="/linzhixuan/">去生日页</a>
+    </nav>
+  </main>
+</body>
+</html>
