@@ -738,141 +738,54 @@ section{
   display:flex;
   align-items:center;
   justify-content:center;
+  background:#FBFDF6;
   opacity:0;
   visibility:hidden;
   pointer-events:none;
-  transition:opacity .55s ease,visibility .55s;
-  background:
-    radial-gradient(820px 640px at 50% 44%, rgba(24,74,58,.82), rgba(4,16,13,.94) 70%);
-  -webkit-backdrop-filter:blur(7px);
-  backdrop-filter:blur(7px);
-  color:#F4E8D2;
+  transition:opacity .45s ease,visibility .45s;
 }
 .levelup.show{opacity:1;visibility:visible;pointer-events:auto}
 .lu-panel{
-  position:relative;
   text-align:center;
-  padding:10px 22px 0;
-  transform:translateY(16px) scale(.97);
-  transition:transform .8s cubic-bezier(.2,.8,.2,1);
+  transform:translateY(10px);
+  transition:transform .7s cubic-bezier(.2,.8,.2,1);
 }
 .levelup.show .lu-panel{transform:none}
-.lu-rays{
-  position:absolute;
-  left:50%;
-  top:46%;
-  width:min(720px,132vw);
-  aspect-ratio:1;
-  transform:translate(-50%,-50%);
-  background:repeating-conic-gradient(from 0deg at 50% 50%,
-    rgba(232,200,138,.13) 0deg 1.4deg, transparent 1.4deg 20deg);
-  -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 12%, transparent 66%);
-  mask-image:radial-gradient(circle at 50% 50%, #000 12%, transparent 66%);
-  animation:spin 90s linear infinite;
-  pointer-events:none;
-}
-@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
-
 .lu-kicker{
-  position:relative;
-  font-size:11.5px;
+  font-size:12px;
   letter-spacing:.62em;
   text-indent:.62em;
-  color:#C8A467;
+  color:var(--muted);
 }
-.lu-rule{
-  position:relative;
-  display:block;
-  width:64px;
-  height:1px;
-  margin:16px auto 22px;
-  background:linear-gradient(90deg,transparent,#C8A467,transparent);
-}
-.lu-line{
-  position:relative;
-  display:flex;
-  align-items:baseline;
-  justify-content:center;
-  gap:clamp(10px,1.6vw,18px);
-}
-.lu-old{
-  font-family:var(--sans);
-  font-size:clamp(13px,1.5vw,16px);
-  letter-spacing:.1em;
-  color:#94815F;
-}
-.lu-arrow{
-  color:#94815F;
-  font-size:clamp(12px,1.3vw,14px);
-  transform:translateY(-.1em);
-}
-.lu-new{
-  display:inline-flex;
-  align-items:baseline;
-  gap:1px;
+.lu-num{
+  margin-top:16px;
   font-family:var(--serif);
-  font-size:clamp(54px,8vw,86px);
+  font-size:clamp(52px,9vw,84px);
   line-height:1;
-  color:#F8E9C4;
-  text-shadow:0 0 46px rgba(232,200,138,.42),0 0 96px rgba(232,200,138,.18);
-  transform:scale(.92);
-  transition:transform .9s cubic-bezier(.2,.9,.25,1) .12s;
-}
-.levelup.show .lu-new{transform:scale(1)}
-.lu-new i{
-  font-family:var(--sans);
-  font-style:normal;
-  font-size:.2em;
-  letter-spacing:.1em;
-  color:#E3CBA0;
-  text-shadow:none;
-}
-.lu-new b{
-  font-weight:400;
-  font-size:1em;
-}
-
-.lu-sub{
-  position:relative;
-  margin-top:14px;
-  font-size:clamp(12.5px,1.4vw,14px);
-  letter-spacing:.24em;
-  color:#CBB994;
+  letter-spacing:.04em;
+  color:var(--ink);
 }
 .lu-btn{
-  position:relative;
-  margin-top:clamp(26px,5vh,40px);
+  margin-top:clamp(30px,6vh,44px);
   font-family:inherit;
-  font-size:12.5px;
-  letter-spacing:.34em;
-  text-indent:.34em;
-  color:#E9D3A6;
-  background:transparent;
-  border:1px solid rgba(232,200,138,.46);
+  font-size:13px;
+  letter-spacing:.42em;
+  text-indent:.42em;
+  color:var(--ink);
+  background:#fff;
+  border:1px solid rgba(14,58,49,.26);
   border-radius:999px;
-  padding:12px 42px;
+  padding:13px 40px;
   cursor:pointer;
-  transition:background .3s,color .3s,border-color .3s;
+  box-shadow:0 10px 24px rgba(30,116,88,.10);
+  transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
 }
-.lu-btn:hover{background:rgba(232,200,138,.14);color:#FFEFCF;border-color:rgba(232,200,138,.8)}
-.lu-btn:focus-visible{outline:2px solid #E9D3A6;outline-offset:4px}
-
-.lu-spark{
-  position:absolute;
-  width:3px;height:3px;
-  border-radius:50%;
-  background:#FFE9BE;
-  opacity:0;
-  box-shadow:0 0 8px 2px rgba(255,233,190,.7);
+.lu-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 32px rgba(30,116,88,.16);
+  background:#F5FDEE;
 }
-.levelup.show .lu-spark{animation:twinkle 3.6s ease-in-out infinite}
-.lu-spark:nth-child(1){left:12%;top:18%;animation-delay:.2s}
-.lu-spark:nth-child(2){left:84%;top:26%;animation-delay:1.1s}
-.lu-spark:nth-child(3){left:26%;top:74%;animation-delay:.7s}
-.lu-spark:nth-child(4){left:72%;top:82%;animation-delay:1.7s}
-.lu-spark:nth-child(5){left:48%;top:8%;animation-delay:2.2s}
-@keyframes twinkle{0%,100%{opacity:0;transform:scale(.6)}45%{opacity:1;transform:scale(1)}}
-
+.lu-btn:focus-visible{outline:2px solid var(--miku);outline-offset:5px}
 /* ---------- 页脚 ---------- */
 
 footer{
@@ -958,13 +871,11 @@ footer{
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .sky i,.chip .dot,.cue span,.lu-rays{animation:none!important}
+  .sky i,.chip .dot,.cue span{animation:none!important}
   .reveal{opacity:1;transform:none;transition:none}
   .bar .track i{transition:none}
   .reveal.in .bar .track i{width:var(--v)}
-  .draw-inner,.launch,.levelup,.lu-panel,.lu-new b{transition:none}
-  .levelup.show .lu-new b{transform:scale(1)}
-  .lu-spark{display:none}
+  .draw-inner,.launch,.levelup,.lu-panel,.lu-btn{transition:none}
 }
 </style>
 </head>
@@ -990,21 +901,11 @@ footer{
 <!-- ==================== 升级弹窗 ==================== -->
 <div class="levelup" id="levelup" role="dialog" aria-modal="true" aria-labelledby="lu-kicker">
   <div class="lu-panel">
-    <span class="lu-spark"></span><span class="lu-spark"></span><span class="lu-spark"></span>
-    <span class="lu-spark"></span><span class="lu-spark"></span>
-    <span class="lu-rays" aria-hidden="true"></span>
-    <p class="lu-kicker" id="lu-kicker">等 级 提 升</p>
-    <span class="lu-rule" aria-hidden="true"></span>
-    <p class="lu-line">
-      <span class="lu-old">Lv.14</span>
-      <span class="lu-arrow" aria-hidden="true">→</span>
-      <span class="lu-new"><i>Lv.</i><b>15</b></span>
-    </p>
-    <p class="lu-sub">十五岁 · 生日快乐</p>
+    <p class="lu-kicker" id="lu-kicker">等级提升</p>
+    <p class="lu-num">Lv.15</p>
     <button class="lu-btn" id="lu-btn" type="button">继 续</button>
   </div>
 </div>
-
 <div class="sky" aria-hidden="true"><i></i><i></i><i></i></div>
 <div class="grain" aria-hidden="true"></div>
 
