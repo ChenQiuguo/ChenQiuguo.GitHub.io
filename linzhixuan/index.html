@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>林芷萱 · 生日快乐</title>
-<meta name="description" content="林芷萱的十五岁。在线时长、属性、这一年的数字、十五年的进度和一张抽卡。">
+<meta name="description" content="林芷萱的十五岁。在线时长、属性、这一年的数字，和十五年的进度。">
 <meta name="theme-color" content="#EAF8DF">
 <meta property="og:title" content="林芷萱 · 生日快乐">
 <meta property="og:description" content="2026.11.10，Lv.15。">
@@ -319,85 +319,6 @@ body.booting{overflow:hidden}
   color:var(--muted);
 }
 
-/* 抽卡 */
-.draw-wrap{text-align:center}
-
-.draw-text{
-  max-width:28em;
-  margin:4px auto 0;
-  min-height:3.4em;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-family:var(--kai);
-  font-size:16px;
-  line-height:1.9;
-  color:var(--ink);
-}
-
-.draw-rarity{
-  min-height:1.4em;
-  margin-top:4px;
-  font-size:11px;
-  letter-spacing:2px;
-  color:var(--miku-deep);
-}
-
-.draw-rarity.ur{color:#D9552F}
-.draw-rarity.ssr{color:#C58A20}
-
-.draw-btn{
-  margin-top:14px;
-  font-family:inherit;
-  font-size:13px;
-  letter-spacing:3px;
-  text-indent:3px;
-  color:var(--ink);
-  background:#fff;
-  border:1px solid rgba(18,55,45,.22);
-  border-radius:999px;
-  padding:11px 34px;
-  cursor:pointer;
-  box-shadow:0 6px 18px rgba(30,116,88,.10);
-  transition:transform .2s ease,box-shadow .2s ease;
-}
-
-.draw-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(30,116,88,.16)}
-.draw-btn:focus-visible{outline:2px solid var(--miku);outline-offset:4px}
-
-.draw-count{margin-top:14px;font-size:12px;color:var(--muted)}
-
-/* 页脚 */
-footer{
-  margin-top:40px;
-  text-align:center;
-}
-
-.footer-title{
-  font-size:20px;
-  font-weight:800;
-}
-
-.footer-line{
-  margin-top:10px;
-  font-family:var(--kai);
-  font-size:14.5px;
-  line-height:2;
-  color:var(--ink-2);
-}
-
-.footer-sign{
-  margin-top:10px;
-  font-size:12.5px;
-  color:var(--muted);
-}
-
-.footer-meta{
-  margin-top:22px;
-  font-size:11.5px;
-  color:#7B9E8F;
-}
-
 /* ---------- 启动 ---------- */
 
 .launch{
@@ -467,9 +388,9 @@ footer{
   inset:0;
   z-index:110;
   display:flex;
-  align-items:flex-end;
+  align-items:flex-start;
   justify-content:center;
-  padding:0 20px 16vh;
+  padding:12vh 20px 0;
   background:rgba(10,44,36,.30);
   -webkit-backdrop-filter:blur(3px);
   backdrop-filter:blur(3px);
@@ -487,8 +408,8 @@ footer{
   padding:20px 44px 18px;
   text-align:center;
   box-shadow:0 20px 48px rgba(12,70,52,.24);
-  transform:translateY(150%);
-  transition:transform .34s cubic-bezier(.16,.86,.3,1);
+  transform:translateY(72vh);
+  transition:transform .36s cubic-bezier(.16,.86,.3,1);
 }
 
 .levelup.show .lu-card{transform:translateY(0)}
@@ -682,26 +603,6 @@ footer{
     </div>
   </section>
 
-  <section class="card">
-    <div class="card-title">抽卡</div>
-    <div class="draw-wrap">
-      <p class="draw-text" id="draw-text">点一下按钮，抽一张祝福。</p>
-      <p class="draw-rarity" id="draw-rarity"></p>
-      <button class="draw-btn" id="draw" type="button">抽 一 张</button>
-      <p class="draw-count" id="draw-count" aria-live="polite">已抽 0 张</p>
-    </div>
-  </section>
-
-  <footer>
-    <p class="footer-title">生日快乐，林芷萱</p>
-    <p class="footer-line">
-      今年也祝你期中进步五十名。<br>
-      番别烂尾，薯片别断货，想出门的时候随时喊我。
-    </p>
-    <p class="footer-sign">—— 秋果</p>
-    <p class="footer-meta">2026.11.10 · chenqiuguo.github.io/linzhixuan</p>
-  </footer>
-
 </div>
 
 <script>
@@ -869,56 +770,6 @@ footer{
   tick();
   window.setInterval(tick, 1000);
 
-  /* ---------- 抽卡 ---------- */
-  var pool = [
-    { r: "SSR", t: "愿你这次期中，真的进步五十名。三十名太少了。" },
-    { r: "SSR", t: "愿你追的番，一部都不会被腰斩。" },
-    { r: "SSR", t: "愿你等的第二季，明年真的会播。" },
-    { r: "SR", t: "愿你的奶茶，永远赶上第二杯半价。" },
-    { r: "SR", t: "愿薯片永远买一送一，且永远吃不完。" },
-    { r: "SR", t: "愿你手机的电量，永远不低于一半。" },
-    { r: "UR", t: "愿美神常驻。愿你也被人这样惊叹一次。" },
-    { r: "UR", t: "愿十五岁的你，被好好喜欢着。" }
-  ];
-
-  var draw = document.getElementById("draw");
-  var drawText = document.getElementById("draw-text");
-  var drawRarity = document.getElementById("draw-rarity");
-  var drawCount = document.getElementById("draw-count");
-  var drawn = 0;
-  var last = -1;
-
-  function pick() {
-    var i = Math.floor(Math.random() * pool.length);
-    if (i === last) i = (i + 1) % pool.length;
-    last = i;
-    return pool[i];
-  }
-
-  function flip() {
-    var card = pick();
-    drawText.textContent = card.t;
-    drawRarity.textContent = card.r;
-    drawRarity.className = "draw-rarity " + card.r.toLowerCase();
-    drawn++;
-    if (drawCount) drawCount.textContent = "已抽 " + drawn + " 张";
-    if (!reduceMotion) {
-      draw.animate(
-        [{ opacity: .35, transform: "translateY(6px) scale(.98)" }, { opacity: 1, transform: "none" }],
-        { duration: 260, easing: "ease-out" }
-      );
-    }
-  }
-
-  if (draw) {
-    draw.addEventListener("click", flip);
-    draw.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        flip();
-      }
-    });
-  }
 })();
 </script>
 </body>
