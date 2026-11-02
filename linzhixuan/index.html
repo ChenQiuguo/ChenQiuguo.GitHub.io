@@ -64,6 +64,8 @@ body{
   min-height:100vh;
 }
 
+body.booting{overflow:hidden}
+
 /* ---------- 背景：一堆明亮的绿混在一起 ---------- */
 .sky{
   position:fixed;
@@ -321,7 +323,7 @@ section{
 .sec-kicker{
   display:block;
   font-size:11px;
-  letter-spacing:.28em;
+  letter-spacing:.2em;
   color:var(--miku-deep);
   margin-bottom:12px;
 }
@@ -660,6 +662,217 @@ section{
 .face.back .h{margin-top:16px;font-size:11px;letter-spacing:.16em;color:var(--muted)}
 .draw-hint{font-size:11.5px;letter-spacing:.16em;color:var(--muted)}
 
+/* ---------- 启动 & 加载 ---------- */
+
+.launch{
+  position:fixed;
+  inset:0;
+  z-index:120;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#FBFDF6;
+  transition:opacity .55s ease,visibility .55s;
+}
+.launch.hide{opacity:0;visibility:hidden;pointer-events:none}
+.launch-stage{display:none;text-align:center;width:min(400px,84vw)}
+.launch-stage.on{display:block}
+
+.start-btn{
+  font-family:inherit;
+  font-size:15px;
+  letter-spacing:.42em;
+  text-indent:.42em;
+  color:var(--ink);
+  background:#fff;
+  border:1px solid rgba(14,58,49,.26);
+  border-radius:999px;
+  padding:17px 52px;
+  cursor:pointer;
+  box-shadow:0 12px 30px rgba(30,116,88,.12);
+  transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
+}
+.start-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 38px rgba(30,116,88,.18);
+  background:#F5FDEE;
+}
+.start-btn:focus-visible{outline:2px solid var(--miku);outline-offset:6px}
+
+.load-title{
+  font-size:13.5px;
+  letter-spacing:.12em;
+  color:var(--ink-2);
+}
+.load-bar{
+  margin:20px 0 12px;
+  height:2px;
+  border-radius:99px;
+  background:rgba(14,58,49,.12);
+  overflow:hidden;
+}
+.load-bar i{
+  display:block;
+  height:100%;
+  width:0;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--miku),var(--lime));
+  transition:width .22s linear;
+}
+.load-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:11px;
+  letter-spacing:.12em;
+  color:var(--muted);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ---------- 升级弹窗 ---------- */
+
+.levelup{
+  position:fixed;
+  inset:0;
+  z-index:110;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .55s ease,visibility .55s;
+  background:
+    radial-gradient(820px 640px at 50% 44%, rgba(24,74,58,.82), rgba(4,16,13,.94) 70%);
+  -webkit-backdrop-filter:blur(7px);
+  backdrop-filter:blur(7px);
+  color:#F4E8D2;
+}
+.levelup.show{opacity:1;visibility:visible;pointer-events:auto}
+.lu-panel{
+  position:relative;
+  text-align:center;
+  padding:10px 22px 0;
+  transform:translateY(16px) scale(.97);
+  transition:transform .8s cubic-bezier(.2,.8,.2,1);
+}
+.levelup.show .lu-panel{transform:none}
+.lu-rays{
+  position:absolute;
+  left:50%;
+  top:46%;
+  width:min(720px,132vw);
+  aspect-ratio:1;
+  transform:translate(-50%,-50%);
+  background:repeating-conic-gradient(from 0deg at 50% 50%,
+    rgba(232,200,138,.13) 0deg 1.4deg, transparent 1.4deg 20deg);
+  -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 12%, transparent 66%);
+  mask-image:radial-gradient(circle at 50% 50%, #000 12%, transparent 66%);
+  animation:spin 90s linear infinite;
+  pointer-events:none;
+}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+
+.lu-kicker{
+  position:relative;
+  font-size:11.5px;
+  letter-spacing:.62em;
+  text-indent:.62em;
+  color:#C8A467;
+}
+.lu-rule{
+  position:relative;
+  display:block;
+  width:64px;
+  height:1px;
+  margin:16px auto 22px;
+  background:linear-gradient(90deg,transparent,#C8A467,transparent);
+}
+.lu-line{
+  position:relative;
+  display:flex;
+  align-items:baseline;
+  justify-content:center;
+  gap:clamp(10px,1.6vw,18px);
+}
+.lu-old{
+  font-family:var(--sans);
+  font-size:clamp(13px,1.5vw,16px);
+  letter-spacing:.1em;
+  color:#94815F;
+}
+.lu-arrow{
+  color:#94815F;
+  font-size:clamp(12px,1.3vw,14px);
+  transform:translateY(-.1em);
+}
+.lu-new{
+  display:inline-flex;
+  align-items:baseline;
+  gap:1px;
+  font-family:var(--serif);
+  font-size:clamp(54px,8vw,86px);
+  line-height:1;
+  color:#F8E9C4;
+  text-shadow:0 0 46px rgba(232,200,138,.42),0 0 96px rgba(232,200,138,.18);
+  transform:scale(.92);
+  transition:transform .9s cubic-bezier(.2,.9,.25,1) .12s;
+}
+.levelup.show .lu-new{transform:scale(1)}
+.lu-new i{
+  font-family:var(--sans);
+  font-style:normal;
+  font-size:.2em;
+  letter-spacing:.1em;
+  color:#E3CBA0;
+  text-shadow:none;
+}
+.lu-new b{
+  font-weight:400;
+  font-size:1em;
+}
+
+.lu-sub{
+  position:relative;
+  margin-top:14px;
+  font-size:clamp(12.5px,1.4vw,14px);
+  letter-spacing:.24em;
+  color:#CBB994;
+}
+.lu-btn{
+  position:relative;
+  margin-top:clamp(26px,5vh,40px);
+  font-family:inherit;
+  font-size:12.5px;
+  letter-spacing:.34em;
+  text-indent:.34em;
+  color:#E9D3A6;
+  background:transparent;
+  border:1px solid rgba(232,200,138,.46);
+  border-radius:999px;
+  padding:12px 42px;
+  cursor:pointer;
+  transition:background .3s,color .3s,border-color .3s;
+}
+.lu-btn:hover{background:rgba(232,200,138,.14);color:#FFEFCF;border-color:rgba(232,200,138,.8)}
+.lu-btn:focus-visible{outline:2px solid #E9D3A6;outline-offset:4px}
+
+.lu-spark{
+  position:absolute;
+  width:3px;height:3px;
+  border-radius:50%;
+  background:#FFE9BE;
+  opacity:0;
+  box-shadow:0 0 8px 2px rgba(255,233,190,.7);
+}
+.levelup.show .lu-spark{animation:twinkle 3.6s ease-in-out infinite}
+.lu-spark:nth-child(1){left:12%;top:18%;animation-delay:.2s}
+.lu-spark:nth-child(2){left:84%;top:26%;animation-delay:1.1s}
+.lu-spark:nth-child(3){left:26%;top:74%;animation-delay:.7s}
+.lu-spark:nth-child(4){left:72%;top:82%;animation-delay:1.7s}
+.lu-spark:nth-child(5){left:48%;top:8%;animation-delay:2.2s}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.6)}45%{opacity:1;transform:scale(1)}}
+
 /* ---------- 页脚 ---------- */
 
 footer{
@@ -745,15 +958,52 @@ footer{
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .sky i,.chip .dot,.cue span{animation:none!important}
+  .sky i,.chip .dot,.cue span,.lu-rays{animation:none!important}
   .reveal{opacity:1;transform:none;transition:none}
   .bar .track i{transition:none}
   .reveal.in .bar .track i{width:var(--v)}
-  .draw-inner{transition:none}
+  .draw-inner,.launch,.levelup,.lu-panel,.lu-new b{transition:none}
+  .levelup.show .lu-new b{transform:scale(1)}
+  .lu-spark{display:none}
 }
 </style>
 </head>
-<body>
+<body class="booting">
+<noscript><style>.launch,.levelup{display:none!important}body.booting{overflow:auto!important}</style></noscript>
+
+<!-- ==================== 启动 ==================== -->
+<div class="launch" id="launch">
+  <div class="launch-stage on" id="launch-start">
+    <button class="start-btn" id="start-btn" type="button">启 动</button>
+  </div>
+
+  <div class="launch-stage" id="launch-load" aria-live="polite">
+    <p class="load-title">《地球 Online》年度报告生成中</p>
+    <div class="load-bar"><i id="load-fill"></i></div>
+    <div class="load-meta">
+      <span id="load-step">读取角色数据…</span>
+      <span id="load-num">0%</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 升级弹窗 ==================== -->
+<div class="levelup" id="levelup" role="dialog" aria-modal="true" aria-labelledby="lu-kicker">
+  <div class="lu-panel">
+    <span class="lu-spark"></span><span class="lu-spark"></span><span class="lu-spark"></span>
+    <span class="lu-spark"></span><span class="lu-spark"></span>
+    <span class="lu-rays" aria-hidden="true"></span>
+    <p class="lu-kicker" id="lu-kicker">等 级 提 升</p>
+    <span class="lu-rule" aria-hidden="true"></span>
+    <p class="lu-line">
+      <span class="lu-old">Lv.14</span>
+      <span class="lu-arrow" aria-hidden="true">→</span>
+      <span class="lu-new"><i>Lv.</i><b>15</b></span>
+    </p>
+    <p class="lu-sub">十五岁 · 生日快乐</p>
+    <button class="lu-btn" id="lu-btn" type="button">继 续</button>
+  </div>
+</div>
 
 <div class="sky" aria-hidden="true"><i></i><i></i><i></i></div>
 <div class="grain" aria-hidden="true"></div>
@@ -762,17 +1012,17 @@ footer{
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
-      <p class="chip"><span class="dot"></span>EARTH ONLINE · 玩家档案</p>
+      <p class="chip"><span class="dot"></span>地球 ONLINE</p>
 
       <h1>林芷萱</h1>
       <p class="handle">@ CELESTIAVEIL</p>
 
-      <p class="hero-line">今天，地球 Online 更新到 Lv.15。<br>以下是这个角色到目前为止的存档摘要。</p>
+      <p class="hero-line">今天升到 15 级。<br>下面是这 15 年攒下的存档。</p>
 
       <div class="hero-tags">
-        <span class="tag">服务器 · 深圳</span>
-        <span class="tag">职业 · 语文课代表</span>
-        <span class="tag warm">当前版本 · 初三 2.0</span>
+        <span class="tag">深圳</span>
+        <span class="tag">语文课代表</span>
+        <span class="tag warm">初三在读</span>
       </div>
     </div>
 
@@ -804,35 +1054,35 @@ footer{
   <section id="panel">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="sec-kicker">0 1 —— 角色面板</span>
-        <h2 class="sec-title">先看看这个角色的底子</h2>
-        <p class="sec-note">不是 RPG 也会有的那种加点表。数据来源：两个月的观察，和一点点私心。</p>
+        <span class="sec-kicker">角色面板</span>
+        <h2 class="sec-title">属性</h2>
+        <p class="sec-note">分数是我瞎给的，看个乐。</p>
       </div>
 
       <div class="panel-grid">
         <div class="card reveal">
-          <h3 style="font-size:14px;font-weight:700;letter-spacing:.12em;color:var(--miku-deep)">属性加点</h3>
+          <h3 style="font-size:14px;font-weight:700;letter-spacing:.12em;color:var(--miku-deep)">加点情况</h3>
           <div class="bars">
             <div class="bar"><span class="name">文学天赋</span><div class="track"><i style="--v:96%"></i></div><b class="val">96</b></div>
             <div class="bar"><span class="name">审美判定</span><div class="track"><i style="--v:99%"></i></div><b class="val">99</b></div>
             <div class="bar"><span class="name">宅家续航</span><div class="track"><i style="--v:94%"></i></div><b class="val">94</b></div>
             <div class="bar b4"><span class="name">零食消化</span><div class="track"><i style="--v:88%"></i></div><b class="val">88</b></div>
             <div class="bar b5"><span class="name">深夜追番</span><div class="track"><i style="--v:91%"></i></div><b class="val">91</b></div>
-            <div class="bar b6"><span class="name">数学近战</span><div class="track"><i style="--v:58%"></i></div><b class="val">58</b></div>
-            <p class="bar-note">数学一栏正在副本里补血，据说下次就能过。</p>
+            <div class="bar b6"><span class="name">数学</span><div class="track"><i style="--v:58%"></i></div><b class="val">58</b></div>
+            <p class="bar-note">数学那一栏不是我打的，是她自己说的。</p>
           </div>
         </div>
 
         <div class="card intro reveal" style="--d:.08s">
-          <p>看小说，追番，看综艺。一个暑假出门的次数，用一只手就能数过来。</p>
-          <p>但要是有人问起剧情，她能从第一集讲到剧场版，中间还顺手把制作公司报一遍。</p>
-          <p>嘴上说着"我脾气不好"，实际上对认真的人和好看的东西，都很有耐心。</p>
+          <p>看小说，追番，看综艺。一个暑假出门的次数，一只手数得过来。</p>
+          <p>但有人问起剧情，她能从头讲到剧场版，连制作公司都记得。</p>
+          <p>她说自己脾气不好。其实只是对敷衍的人没什么耐心。</p>
           <div class="tags">
-            <span class="tag">京阿尼爱好者</span>
-            <span class="tag">言情小说囤积者</span>
-            <span class="tag">颜控十级</span>
+            <span class="tag">京阿尼</span>
+            <span class="tag">言情小说</span>
+            <span class="tag">颜控</span>
             <span class="tag">深夜刷番</span>
-            <span class="tag warm">薯片常驻</span>
+            <span class="tag warm">薯片</span>
           </div>
         </div>
       </div>
@@ -843,18 +1093,18 @@ footer{
   <section id="season">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="sec-kicker">0 2 —— 2026 赛季</span>
-        <h2 class="sec-title">这一年，数据是这样记的</h2>
-        <p class="sec-note">按各大 App 年度报告的口径统计，仅供参考，不接受反驳。</p>
+        <span class="sec-kicker">2026</span>
+        <h2 class="sec-title">今年的一些数字</h2>
+        <p class="sec-note">数都是我瞎记的，不太准。</p>
       </div>
 
       <div class="stat-grid">
-        <div class="stat reveal"><p class="k">追番完成度</p><p class="v">12<small>部</small></p><p class="n">平均三天完结一部，看完还要找 OST。</p></div>
-        <div class="stat reveal" style="--d:.06s"><p class="k">小说阅读量</p><p class="v">∞<small>本</small></p><p class="n">统计模块已放弃工作。</p></div>
-        <div class="stat reveal" style="--d:.12s"><p class="k">薯片消耗</p><p class="v">6<small>包 / 3 天</small></p><p class="n">综艺时间的硬性配给。</p></div>
-        <div class="stat reveal" style="--d:.18s"><p class="k">十一月第一杯奶茶</p><p class="v">1<small>杯</small></p><p class="n">芒果味，已到账。</p></div>
-        <div class="stat reveal" style="--d:.24s"><p class="k">最常说的话</p><p class="v">绷不住了</p><p class="n">全年高频 TOP 1，第二名是"我去"。</p></div>
-        <div class="stat reveal" style="--d:.3s"><p class="k">出门次数</p><p class="v">≤ 5<small>次 / 夏</small></p><p class="n">宅家赛区的种子选手。</p></div>
+        <div class="stat reveal"><p class="k">追番</p><p class="v">12<small>部</small></p><p class="n">平均三天一部，看完还得去找 OST。</p></div>
+        <div class="stat reveal" style="--d:.06s"><p class="k">小说</p><p class="v">∞<small>本</small></p><p class="n">统计不出来。</p></div>
+        <div class="stat reveal" style="--d:.12s"><p class="k">薯片</p><p class="v">6<small>包 / 3 天</small></p><p class="n">看综艺的时候必须有。</p></div>
+        <div class="stat reveal" style="--d:.18s"><p class="k">十一月第一杯奶茶</p><p class="v">1<small>杯</small></p><p class="n">芒果味。</p></div>
+        <div class="stat reveal" style="--d:.24s"><p class="k">最常说的话</p><p class="v">绷不住了</p><p class="n">第二名是"我去"。</p></div>
+        <div class="stat reveal" style="--d:.3s"><p class="k">出门次数</p><p class="v">≤ 5<small>次 / 暑假</small></p><p class="n">她自己说的。</p></div>
       </div>
     </div>
   </section>
@@ -863,87 +1113,87 @@ footer{
   <section id="quest">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="sec-kicker">0 3 —— 主线进度</span>
-        <h2 class="sec-title">入坑第 15 年，剧情走到哪了</h2>
-        <p class="sec-note">地球 Online 没有跳过键，只能一关一关打。好在到目前为止，她打得很漂亮。</p>
+        <span class="sec-kicker">主线</span>
+        <h2 class="sec-title">十五年的进度条</h2>
+        <p class="sec-note">没有跳过键，只能一关一关来。</p>
       </div>
 
       <ol class="quest">
         <li class="past reveal">
           <span class="node">00</span>
-          <span class="t">2011.11.10 · 入坑第 0 天</span>
-          <h4>角色创建完成</h4>
-          <p>出生地：汕头。初始天赋随机分配，文学与审美两项直接拉满。</p>
+          <span class="t">2011.11.10 · 第 0 天</span>
+          <h4>角色创建</h4>
+          <p>汕头。刚出生的时候大概还看不出后来那么爱看书。</p>
         </li>
 
         <li class="past reveal">
           <span class="node">03</span>
-          <span class="t">2015.09 · 入坑第 3 年 10 个月</span>
-          <h4>新手教程：幼儿园</h4>
-          <p>第一次学会跟一群同龄人待在一间屋子里，也第一次发现"集体生活"是个副本。</p>
+          <span class="t">2015.09 · 第 3 年 10 个月</span>
+          <h4>幼儿园</h4>
+          <p>第一次学会一整天不回家。</p>
         </li>
 
         <li class="past reveal">
           <span class="node">06</span>
-          <span class="t">2018.09 · 入坑第 6 年 10 个月</span>
-          <h4>主线开启：小学</h4>
-          <p>九年义务教育第一段。同期解锁隐藏技能：看书看得比谁都快。</p>
+          <span class="t">2018.09 · 第 6 年 10 个月</span>
+          <h4>小学</h4>
+          <p>九年义务教育的上半场。看书看得比谁都快，就是从这里开始的。</p>
         </li>
 
         <li class="past reveal">
           <span class="node">12</span>
-          <span class="t">2024.09 · 入坑第 12 年 10 个月</span>
-          <h4>第二章：初中，转职语文课代表</h4>
-          <p>获得职业被动：所有和文字有关的任务，效率加成。</p>
+          <span class="t">2024.09 · 第 12 年 10 个月</span>
+          <h4>初中</h4>
+          <p>当上了语文课代表。从此批改和收作业都归她管。</p>
         </li>
 
         <li class="past reveal">
           <span class="node">14</span>
-          <span class="t">2026.09 · 入坑第 14 年 10 个月</span>
-          <h4>当前章节：初三</h4>
-          <p>难度上调，作业量翻倍，但她还是能在写完数学之后打开一集番。</p>
+          <span class="t">2026.09 · 第 14 年 10 个月</span>
+          <h4>初三</h4>
+          <p>作业变多。不过她还是会在写完数学以后，打开一集番。</p>
         </li>
 
         <li class="now reveal">
           <span class="node">15</span>
-          <span class="t">2026.11.10 · 入坑第 15 年整</span>
-          <h4>版本更新：Lv.15</h4>
-          <p>今日更新。没有更新日志，只有一句：生日快乐。</p>
+          <span class="t">2026.11.10 · 第 15 年整</span>
+          <h4>Lv.15</h4>
+          <p>今天。</p>
         </li>
 
         <li class="future reveal">
           <span class="node">15</span>
-          <span class="t">2027.06 · 入坑第 15 年 7 个月</span>
-          <h4>Boss 战：中考</h4>
-          <p>第一个真正意义上的大关。打完就能换地图。</p>
+          <span class="t">2027.06 · 第 15 年 7 个月</span>
+          <h4>中考</h4>
+          <p>下一个大关。</p>
         </li>
 
         <li class="future reveal">
           <span class="node">15</span>
-          <span class="t">2027.09 · 入坑第 15 年 10 个月</span>
-          <h4>新地图：高中</h4>
-          <p>据说那里有更大的图书馆，和更值得吐槽的晚自习。</p>
+          <span class="t">2027.09 · 第 15 年 10 个月</span>
+          <h4>高中</h4>
+          <p>换一张地图。据说图书馆更大，晚自习更长。</p>
         </li>
 
         <li class="future reveal">
           <span class="node">18</span>
-          <span class="t">2029.11 · 入坑第 18 年整</span>
-          <h4>成年：解锁实名认证</h4>
-          <p>从此所有"未成年限制"解除，包括熬夜看小说这件事。</p>
+          <span class="t">2029.11 · 第 18 年整</span>
+          <h4>十八岁</h4>
+          <p>成年。熬夜看小说这件事，从此不用偷偷摸摸。</p>
         </li>
 
         <li class="future reveal">
           <span class="node">18</span>
-          <span class="t">2030.06 · 入坑第 18 年 7 个月</span>
-          <h4>终局之战：高考</h4>
-          <p>打完这一场，世界地图才真正打开。</p>
+          <span class="t">2030.06 · 第 18 年 7 个月</span>
+          <h4>高考</h4>
+          <p>再一关。</p>
         </li>
 
         <li class="future reveal">
           <span class="node">∞</span>
-          <span class="t">之后 · 未完待续</span>
-          <h4>大学，远方，更多地图</h4>
-          <p>存档会一直写下去。这一页只是第 15 年的存档点。</p>
+          <span class="t">之后 · 未完</span>
+          <h4>更多地图</h4>
+          <p>存档会一直写下去。</p>
         </li>
       </ol>
     </div>
@@ -953,58 +1203,58 @@ footer{
   <section id="ach">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="sec-kicker">0 4 —— 成就解锁</span>
-        <h2 class="sec-title">已经拿到手的徽章</h2>
-        <p class="sec-note">有些是系统发的，有些是她自己挣的。</p>
+        <span class="sec-kicker">成就</span>
+        <h2 class="sec-title">已经拿到的</h2>
+        <p class="sec-note">有的是别人给的，有的是她自己挣的。</p>
       </div>
 
       <div class="ach-grid">
         <div class="ach reveal">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 5.5A1.5 1.5 0 015.5 4H11v16H5.5A1.5 1.5 0 014 18.5z"/><path d="M20 5.5A1.5 1.5 0 0018.5 4H13v16h5.5A1.5 1.5 0 0020 18.5z"/></svg></div>
           <h4>文字的猎手</h4>
-          <p>阅读量无法统计，但肯定吓人。</p>
+          <p>阅读量没法统计。</p>
         </div>
 
         <div class="ach reveal" style="--d:.05s">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M7 5v14M17 5v14M3 10h18M3 14h18"/></svg></div>
           <h4>京阿尼认证观众</h4>
-          <p>能顺手报出制作公司的那种。</p>
+          <p>连制作公司都记得住。</p>
         </div>
 
         <div class="ach reveal" style="--d:.1s">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4 3 5-7 5 7 4-3-2 11H5z"/></svg></div>
           <h4>美神降临见证者</h4>
-          <p>审美阈值高到令人发指。</p>
+          <p>好看的东西她一眼就能看出来。</p>
         </div>
 
         <div class="ach reveal" style="--d:.15s">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 3h9l4 4v14a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M8.5 12h7M8.5 16h4"/></svg></div>
           <h4>语文课代表</h4>
-          <p>以文字为职业的正式身份。</p>
+          <p>管着全班的作业。</p>
         </div>
 
         <div class="ach reveal" style="--d:.2s">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6.5 10v10h11V10"/></svg></div>
           <h4>宅家冠军</h4>
-          <p>暑假出门次数：五以内。</p>
+          <p>暑假出门次数，五以内。</p>
         </div>
 
         <div class="ach reveal" style="--d:.25s">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 8h10l-1 12H8z"/><path d="M9.5 8V5.5a2.5 2.5 0 015 0V8"/></svg></div>
           <h4>薯片终结者</h4>
-          <p>三天六包，综艺期间加速。</p>
+          <p>三天六包。</p>
         </div>
 
         <div class="ach reveal" style="--d:.3s">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 7h11l-1.5 11.5a2 2 0 01-2 1.5h-4a2 2 0 01-2-1.5z"/><path d="M9 7l1-3.5h5"/></svg></div>
           <h4>芒果奶茶使者</h4>
-          <p>十一月第一杯，从来没有迟到过。</p>
+          <p>十一月第一杯，一次没落。</p>
         </div>
 
         <div class="ach hot reveal" style="--d:.35s">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 6.2 6.4.5-4.9 4.2 1.5 6.3L12 16.8 6.4 20.2l1.5-6.3L3 9.7l6.4-.5z"/></svg></div>
-          <h4>Lv.15 达成</h4>
-          <p>今日解锁 · 全服唯一。</p>
+          <h4>Lv.15</h4>
+          <p>今天解锁。</p>
         </div>
       </div>
     </div>
@@ -1014,18 +1264,18 @@ footer{
   <section id="gacha">
     <div class="wrap">
       <div class="sec-head reveal" style="text-align:center">
-        <span class="sec-kicker">0 5 —— 限定卡池</span>
-        <h2 class="sec-title">十五岁限定池，十连保底</h2>
-        <p class="sec-note" style="margin-left:auto;margin-right:auto">点一下卡面翻牌。每张都是真的，只是不一定一次抽到。</p>
+        <span class="sec-kicker">抽卡</span>
+        <h2 class="sec-title">抽一张祝福</h2>
+        <p class="sec-note" style="margin-left:auto;margin-right:auto">八张，点一下翻面。抽完可以再抽。</p>
       </div>
 
       <div class="draw-wrap reveal">
         <div class="draw" id="draw" role="button" tabindex="0" aria-label="抽一张生日祝福卡">
           <div class="draw-inner">
             <div class="face front">
-              <p class="k">LIMITED DRAW · 2026.11.10</p>
-              <p class="t">点一下，抽一张</p>
-              <p class="h">今日池：全部为生日祝福</p>
+              <p class="k">2026.11.10</p>
+              <p class="t">点一下</p>
+              <p class="h">八张祝福，随便抽</p>
             </div>
             <div class="face back" id="face-back">
               <p class="rarity" id="rarity">SSR</p>
@@ -1044,16 +1294,15 @@ footer{
 
 <footer>
   <div class="wrap">
-    <p class="foot-badge">EARTH ONLINE · 15TH ANNIVERSARY</p>
-    <h2 class="foot-title">Lv.15 生日快乐</h2>
+    <p class="foot-badge">2026.11.10</p>
+    <h2 class="foot-title">生日快乐，林芷萱</h2>
     <p class="foot-line">
-      愿你在下一个版本里，还有看不完的好番、写不完的漂亮句子，<br>
-      和一整个夏天都不想出门的理由。
+      今年也祝你期中进步五十名。<br>
+      番别烂尾，薯片别断货，想出门的时候随时喊我。
     </p>
-    <p class="foot-sign">—— 秋果 · 2026.11.10</p>
+    <p class="foot-sign">—— 秋果</p>
     <p class="foot-meta">
-      MADE FOR 林芷萱<br>
-      CHENQIUGUO.GITHUB.IO/LINZHIXUAN
+      chenqiuguo.github.io/linzhixuan
     </p>
   </div>
 </footer>
@@ -1064,6 +1313,98 @@ footer{
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var TZ = 8 * 3600000; /* 全部按 +08:00 算，跟服务器一致 */
+
+  /* ---------------- 0. 启动 → 加载 → 升级弹窗 ---------------- */
+  var launch = document.getElementById("launch");
+  var launchStart = document.getElementById("launch-start");
+  var launchLoad = document.getElementById("launch-load");
+  var startBtn = document.getElementById("start-btn");
+  var loadFill = document.getElementById("load-fill");
+  var loadNum = document.getElementById("load-num");
+  var loadStep = document.getElementById("load-step");
+  var levelup = document.getElementById("levelup");
+  var luBtn = document.getElementById("lu-btn");
+
+  var loadSteps = [
+    [0, "读取角色数据…"],
+    [24, "翻看追番和小说…"],
+    [52, "整理十五年的存档…"],
+    [78, "生成年度报告…"],
+    [100, "完成"]
+  ];
+
+  function paintLoad(p) {
+    if (loadFill) loadFill.style.width = p + "%";
+    if (loadNum) loadNum.textContent = p + "%";
+    if (loadStep) {
+      for (var i = loadSteps.length - 1; i >= 0; i--) {
+        if (p >= loadSteps[i][0]) {
+          if (loadStep.textContent !== loadSteps[i][1]) loadStep.textContent = loadSteps[i][1];
+          break;
+        }
+      }
+    }
+  }
+
+  function showLevelup() {
+    if (!levelup) return;
+    levelup.classList.add("show");
+    if (luBtn) {
+      window.setTimeout(function () { luBtn.focus(); }, 260);
+    }
+  }
+
+  function hideLevelup() {
+    if (!levelup || !levelup.classList.contains("show")) return;
+    levelup.classList.remove("show");
+  }
+
+  function endLaunch() {
+    if (launch) launch.classList.add("hide");
+    document.body.classList.remove("booting");
+    window.setTimeout(showLevelup, 560);
+  }
+
+  var loading = false;
+
+  function runLoading() {
+    if (loading) return;
+    loading = true;
+
+    if (!launchLoad) return endLaunch();
+    if (launchStart) launchStart.classList.remove("on");
+    launchLoad.classList.add("on");
+
+    var duration = reduceMotion ? 1000 : 2400;
+    var t0 = Date.now();
+
+    var timer = window.setInterval(function () {
+      var k = Math.min(1, (Date.now() - t0) / duration);
+      var eased = 1 - Math.pow(1 - k, 1.8);
+      paintLoad(Math.round(eased * 100));
+      if (k >= 1) {
+        window.clearInterval(timer);
+        paintLoad(100);
+        window.setTimeout(endLaunch, 420);
+      }
+    }, 40);
+  }
+
+  if (startBtn) {
+    startBtn.addEventListener("click", runLoading);
+  } else {
+    endLaunch();
+  }
+
+  if (luBtn) luBtn.addEventListener("click", hideLevelup);
+  if (levelup) {
+    levelup.addEventListener("click", function (e) {
+      if (e.target === levelup) hideLevelup();
+    });
+  }
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") hideLevelup();
+  });
 
   /* ---------------- 1. 地球 Online 在线时长 ---------------- */
   var BIRTH = Date.UTC(2011, 10, 10, 0, 0, 0) - TZ; /* 2011-11-10 00:00 +08:00 */
