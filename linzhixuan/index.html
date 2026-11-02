@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>林芷萱 · 地球 Online · 生日快乐</title>
-<meta name="description" content="林芷萱的十五岁：地球 Online 在线时长、角色面板、2026 赛季数据、主线进度与成就解锁。">
+<title>林芷萱 · 生日快乐</title>
+<meta name="description" content="林芷萱的十五岁。在线时长、属性、这一年的数字、十五年的进度和一张抽卡。">
 <meta name="theme-color" content="#EAF8DF">
-<meta property="og:title" content="林芷萱 · 地球 Online · 生日快乐">
-<meta property="og:description" content="2026.11.10 版本更新：Lv.15。在线时长、赛季数据、主线进度与成就，一份属于她的年度总结。">
+<meta property="og:title" content="林芷萱 · 生日快乐">
+<meta property="og:description" content="2026.11.10，Lv.15。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://chenqiuguo.github.io/linzhixuan/">
 <meta property="og:image" content="https://chenqiuguo.github.io/linzhixuan/preview.jpg">
@@ -16,37 +16,16 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2339C5BB'/%3E%3Cpath d='M16 6l2.6 6.4L25 15l-6.4 2.6L16 24l-2.6-6.4L7 15l6.4-2.6z' fill='%23fff'/%3E%3C/svg%3E">
 <style>
-/* ============================================================
-   林芷萱 · 地球 Online
-   单文件、零依赖、不联网加载任何资源
-   主色：#39C5BB（初音绿）+ 明亮的各种绿混色
-   结构：首屏 在线时长 / 01 角色面板 / 02 赛季数据
-        03 主线进度 / 04 成就 / 05 限定抽卡
-   ============================================================ */
-
 :root{
-  /* 绿 */
-  --miku:#39C5BB;          /* 初音未来绿 */
-  --miku-deep:#1FA79E;
+  --miku:#39C5BB;
+  --miku-deep:#1B8F87;
   --lime:#8FD44A;
-  --leaf:#2E9E63;
-  --mint:#C9F0E4;
-  /* 阳光 */
-  --sun:#FFC24B;
-  --coral:#FF8A6B;
-  /* 文字 */
-  --ink:#0E3A31;
-  --ink-2:#28594B;
-  --muted:#4A7365;
-  /* 面 */
-  --card:rgba(255,255,255,.72);
-  --card-solid:#FFFFFF;
-  --line:rgba(14,58,49,.10);
-  --shadow:0 20px 44px rgba(30,116,88,.14);
+  --ink:#12372D;
+  --ink-2:#2C5A4C;
+  --muted:#5A8577;
+  --line:rgba(18,55,45,.10);
   --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Segoe UI",sans-serif;
-  --serif:"Songti SC","STSong","Noto Serif SC","SimSun",serif;
   --kai:"Kaiti SC","STKaiti","KaiTi","楷体",serif;
-  --pad:clamp(20px,5vw,46px);
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -56,613 +35,370 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
   font-family:var(--sans);
   color:var(--ink);
-  background:#F3FBEC;
-  line-height:1.75;
-  overflow-x:hidden;
+  font-size:14.5px;
+  line-height:1.9;
+  background:
+    radial-gradient(780px 620px at 2% -8%, rgba(57,197,187,.52), transparent 62%),
+    radial-gradient(720px 580px at 100% 2%, rgba(143,212,74,.52), transparent 60%),
+    radial-gradient(620px 520px at 96% 46%, rgba(80,204,148,.22), transparent 66%),
+    radial-gradient(720px 640px at 46% 106%, rgba(143,212,74,.42), transparent 66%),
+    linear-gradient(170deg,#F6FDEE 0%,#E9F8DE 40%,#E4F7E4 70%,#F1FBEA 100%);
+  background-attachment:fixed;
   -webkit-font-smoothing:antialiased;
-  position:relative;
-  min-height:100vh;
+  overflow-x:hidden;
 }
 
 body.booting{overflow:hidden}
 
-/* ---------- 背景：一堆明亮的绿混在一起 ---------- */
-.sky{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  background:
-    radial-gradient(920px 740px at 5% -9%, rgba(57,197,187,.70), transparent 62%),
-    radial-gradient(840px 660px at 97% 1%, rgba(143,212,74,.66), transparent 60%),
-    radial-gradient(760px 620px at 78% 42%, rgba(80,204,148,.30), transparent 66%),
-    radial-gradient(700px 580px at 8% 64%, rgba(255,194,75,.30), transparent 68%),
-    radial-gradient(940px 720px at 52% 106%, rgba(143,212,74,.56), transparent 64%),
-    linear-gradient(158deg,#F4FCE7 0%,#E6F7D3 34%,#DDF5DF 62%,#EDFBEA 100%);
-}
-.sky i{
-  position:absolute;
-  display:block;
-  border-radius:50%;
-  filter:blur(56px);
-  opacity:.55;
-  animation:drift 22s ease-in-out infinite;
-}
-.sky i:nth-child(1){width:46vw;height:46vw;left:-8vw;top:6vh;background:radial-gradient(circle,#7BE3DA,#39C5BB 60%,transparent 72%)}
-.sky i:nth-child(2){width:40vw;height:40vw;right:-6vw;top:22vh;background:radial-gradient(circle,#D6F5A6,#8FD44A 58%,transparent 72%);animation-duration:28s;animation-direction:reverse}
-.sky i:nth-child(3){width:36vw;height:36vw;left:26vw;bottom:-14vh;background:radial-gradient(circle,#FFF0C4,#FFC24B 58%,transparent 74%);opacity:.38;animation-duration:34s}
-@keyframes drift{
-  0%,100%{transform:translate3d(0,0,0) scale(1)}
-  50%    {transform:translate3d(2vw,-2vh,0) scale(1.06)}
-}
-
-/* 细颗粒，避免大面积纯色太"塑料" */
-.grain{
-  position:fixed;
-  inset:0;
-  z-index:3;
-  pointer-events:none;
-  opacity:.05;
-  mix-blend-mode:multiply;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 .wrap{
   width:100%;
-  max-width:1100px;
+  max-width:760px;
   margin:0 auto;
-  padding:0 var(--pad);
-  position:relative;
-  z-index:1;
+  padding:0 20px 60px;
 }
 
 /* ---------- 首屏 ---------- */
 
 .hero{
-  min-height:100svh;
-  display:flex;
-  align-items:center;
-  padding:clamp(68px,10vh,110px) 0 clamp(48px,7vh,80px);
-}
-.hero-grid{
-  display:grid;
-  grid-template-columns:1.08fr .92fr;
-  gap:clamp(28px,4.6vw,60px);
-  align-items:center;
+  padding:56px 0 8px;
 }
 
-.chip{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:7px 16px 7px 12px;
-  border-radius:999px;
-  background:rgba(255,255,255,.80);
-  border:1px solid rgba(57,197,187,.38);
-  font-size:11px;
-  letter-spacing:.22em;
-  color:#1B7F78;
-  box-shadow:0 6px 18px rgba(31,167,158,.14);
-}
-.chip .dot{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--miku);
-  box-shadow:0 0 0 3px rgba(57,197,187,.22);
-  animation:blink 2.6s ease-in-out infinite;
-}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
-
-.hero h1{
-  margin:22px 0 0;
-  font-size:clamp(46px,8.2vw,92px);
+.name{
+  font-size:clamp(34px,7vw,46px);
   font-weight:800;
-  letter-spacing:.02em;
-  line-height:1.04;
-  color:var(--ink);
-  position:relative;
-  padding-bottom:16px;
+  letter-spacing:1px;
+  line-height:1.2;
 }
-.hero h1::after{
-  content:"";
-  position:absolute;
-  left:4px;
-  bottom:0;
-  width:clamp(66px,9vw,104px);
-  height:6px;
-  border-radius:99px;
-  background:linear-gradient(90deg,var(--miku),var(--lime));
-}
+
 .handle{
-  margin-top:14px;
-  font-size:clamp(12px,.95rem,14px);
-  letter-spacing:.2em;
+  margin-top:6px;
+  font-size:13px;
   color:var(--miku-deep);
 }
-.hero-line{
-  margin-top:22px;
-  max-width:36ch;
+
+.lead{
+  margin-top:18px;
   font-family:var(--kai);
-  font-size:clamp(14px,1.5vw,17px);
+  font-size:15.5px;
   line-height:2;
   color:var(--ink-2);
 }
-.hero-tags{
-  margin-top:26px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
+
+/* 在线时长 */
+.clock-card{
+  margin-top:22px;
+  background:rgba(255,255,255,.80);
+  border:1.5px solid #fff;
+  border-radius:20px;
+  padding:20px 22px;
+  box-shadow:0 10px 26px rgba(30,116,88,.12);
 }
 
-/* 玩家卡：在线时长 */
-.boot{
-  position:relative;
-  padding:clamp(20px,2.8vw,30px);
-  border-radius:26px;
-  background:linear-gradient(160deg,rgba(255,255,255,.92),rgba(255,255,255,.66));
-  border:1px solid #fff;
-  box-shadow:0 26px 60px rgba(24,110,84,.18),inset 0 1px 0 rgba(255,255,255,.9);
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  transform:rotate(-1.1deg);
-  transition:transform .6s cubic-bezier(.2,.7,.3,1);
-}
-.boot:hover{transform:rotate(0deg) translateY(-4px)}
-.boot::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:26px;
-  background:linear-gradient(120deg,rgba(57,197,187,.16),transparent 42%);
-  pointer-events:none;
-}
-.boot-head{
+.clock-head{
   display:flex;
   align-items:baseline;
   justify-content:space-between;
-  gap:10px;
-  padding-bottom:14px;
-  border-bottom:1px dashed rgba(14,58,49,.16);
-}
-.boot-head .label{
-  font-size:11px;
-  letter-spacing:.26em;
-  color:#1B7F78;
-}
-.boot-head .sess{
-  font-size:10.5px;
-  letter-spacing:.14em;
+  font-size:12px;
   color:var(--muted);
-  font-variant-numeric:tabular-nums;
+  margin-bottom:12px;
 }
+
 .clock{
-  margin:clamp(16px,2.6vw,22px) 0 clamp(14px,2.2vw,18px);
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:2px;
-  text-align:center;
+  display:flex;
+  align-items:flex-end;
+  gap:14px;
+  flex-wrap:wrap;
 }
-.unit{display:flex;flex-direction:column;align-items:center;gap:3px}
-.unit b{
-  font-size:clamp(20px,2.9vw,30px);
-  line-height:1.05;
+
+.clock span{
+  font-size:clamp(22px,4.6vw,30px);
   font-weight:800;
-  letter-spacing:-.02em;
-  color:var(--ink);
   font-variant-numeric:tabular-nums;
+  line-height:1.1;
 }
-.unit i{
+
+.clock i{
   font-style:normal;
-  font-size:10px;
-  letter-spacing:.14em;
+  font-size:11px;
   color:var(--muted);
+  margin-left:3px;
 }
-.boot-foot{
+
+.clock-foot{
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid var(--line);
   display:flex;
   align-items:center;
   gap:10px;
-  flex-wrap:wrap;
-  padding-top:14px;
-  border-top:1px solid rgba(14,58,49,.08);
+  font-size:12.5px;
+  color:var(--muted);
 }
+
 .lv{
   font-size:12px;
   font-weight:700;
-  letter-spacing:.1em;
   color:#fff;
-  background:linear-gradient(120deg,var(--miku),var(--leaf));
+  background:var(--miku-deep);
   border-radius:999px;
-  padding:6px 14px;
-  box-shadow:0 8px 18px rgba(46,158,99,.28);
-}
-.lv.up{background:linear-gradient(120deg,var(--sun),#FF9E4B);box-shadow:0 8px 18px rgba(255,158,75,.3)}
-.lv-note{
-  font-size:11.5px;
-  letter-spacing:.06em;
-  color:var(--muted);
-  font-variant-numeric:tabular-nums;
+  padding:3px 12px;
 }
 
-.cue{
-  display:inline-flex;
-  align-items:center;
-  gap:9px;
-  margin-top:clamp(30px,5vh,46px);
-  font-size:11px;
-  letter-spacing:.26em;
-  color:var(--ink-2);
-  text-decoration:none;
-}
-.cue span{
-  width:22px;height:1px;
-  background:linear-gradient(90deg,var(--miku),transparent);
-  animation:cue 2.4s ease-in-out infinite;
-}
-@keyframes cue{0%,100%{transform:scaleX(.5);opacity:.5}50%{transform:scaleX(1);opacity:1}}
+.lv.up{background:#E8963C}
 
-/* ---------- 通用 ---------- */
-
-.tag{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  padding:6px 13px;
-  border-radius:999px;
-  font-size:11.5px;
-  letter-spacing:.06em;
-  color:#1B7F78;
-  background:rgba(255,255,255,.66);
-  border:1px solid rgba(57,197,187,.30);
-}
-.tag.warm{color:#8A5A12;border-color:rgba(255,194,75,.46);background:rgba(255,246,224,.72)}
-
-section{
-  padding:clamp(58px,10vh,104px) 0;
-  position:relative;
-}
-
-.sec-head{margin-bottom:clamp(26px,4.4vh,42px)}
-.sec-kicker{
-  display:block;
-  font-size:11px;
-  letter-spacing:.2em;
-  color:var(--miku-deep);
-  margin-bottom:12px;
-}
-.sec-title{
-  font-size:clamp(24px,3.9vw,36px);
-  font-weight:800;
-  letter-spacing:.02em;
-  line-height:1.3;
-}
-.sec-note{
-  margin-top:12px;
-  max-width:48ch;
-  font-size:clamp(12.5px,.92rem,14.5px);
-  line-height:1.95;
-  color:var(--muted);
-}
+/* ---------- 卡片 ---------- */
 
 .card{
-  background:var(--card);
-  border:1px solid #fff;
+  margin-top:16px;
+  background:rgba(255,255,255,.80);
+  border:1.5px solid #fff;
   border-radius:22px;
-  padding:clamp(20px,3vw,30px);
-  box-shadow:var(--shadow);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
+  padding:22px 24px;
+  box-shadow:0 10px 26px rgba(30,116,88,.10);
 }
 
-/* ---------- 01 角色面板 ---------- */
-
-.panel-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:clamp(16px,2.6vw,26px);
-  align-items:start;
+.card-title{
+  font-size:14px;
+  font-weight:700;
+  color:var(--miku-deep);
+  letter-spacing:.5px;
+  margin-bottom:16px;
 }
 
-.bars{display:flex;flex-direction:column;gap:15px;margin-top:18px}
+.card p + p{margin-top:10px}
+
+.intro p{
+  font-family:var(--kai);
+  font-size:15px;
+  line-height:2.05;
+  color:var(--ink-2);
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:16px;
+}
+
+.tag{
+  font-size:12.5px;
+  color:var(--ink-2);
+  background:#fff;
+  border:1px solid rgba(57,197,187,.36);
+  border-radius:999px;
+  padding:5px 13px;
+}
+
+/* 属性条 */
 .bar{
-  display:grid;
-  grid-template-columns:5.6em 1fr 2.2em;
+  display:flex;
   align-items:center;
   gap:12px;
-  font-size:12.5px;
+  font-size:13px;
+  margin-bottom:11px;
 }
-.bar .name{color:var(--ink-2);letter-spacing:.04em}
-.bar .track{
-  height:7px;
+
+.bar:last-of-type{margin-bottom:0}
+
+.bar .n{
+  width:4.6em;
+  color:var(--ink-2);
+  flex:none;
+}
+
+.bar .t{
+  flex:1;
+  height:8px;
   border-radius:999px;
-  background:rgba(20,90,72,.10);
+  background:rgba(18,55,45,.09);
   overflow:hidden;
 }
-.bar .track i{
+
+.bar .t i{
   display:block;
   height:100%;
   width:0;
   border-radius:999px;
-  background:linear-gradient(90deg,var(--miku),var(--lime));
-  transition:width 1.25s cubic-bezier(.2,.72,.3,1);
+  background:var(--miku);
+  transition:width 1s ease .2s;
 }
-.bar.b4 .track i{background:linear-gradient(90deg,var(--miku-deep),var(--miku))}
-.bar.b5 .track i{background:linear-gradient(90deg,#63C6BE,#A6E27C)}
-.bar.b6 .track i{background:linear-gradient(90deg,var(--sun),var(--coral))}
-.bar .val{
+
+.bar.warm .t i{background:#F0AE52}
+.bar .v{
+  width:2em;
   text-align:right;
   font-weight:700;
-  font-variant-numeric:tabular-nums;
   color:var(--ink);
+  flex:none;
 }
-.reveal.in .bar .track i{width:var(--v)}
+
+.loaded .bar .t i{width:var(--v)}
 
 .bar-note{
-  grid-column:1 / -1;
-  margin-top:-6px;
-  font-size:11px;
+  margin-top:12px;
+  font-size:12px;
   color:var(--muted);
 }
 
-.intro p{
-  font-family:var(--kai);
-  font-size:clamp(14px,1.45vw,16.5px);
-  line-height:2.05;
-  color:var(--ink-2);
-}
-.intro p + p{margin-top:.9em}
-.intro .tags{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
-
-/* ---------- 02 赛季数据 ---------- */
-
-.stat-grid{
+/* 数字 */
+.grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:clamp(12px,1.8vw,18px);
+  gap:14px;
 }
-.stat{
-  background:var(--card);
-  border:1px solid #fff;
-  border-radius:20px;
-  padding:clamp(18px,2.4vw,24px);
-  box-shadow:var(--shadow);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-  transition:transform .45s cubic-bezier(.2,.7,.3,1),box-shadow .45s;
+
+.num .k{
+  font-size:12px;
+  color:var(--muted);
 }
-.stat:hover{transform:translateY(-5px);box-shadow:0 26px 54px rgba(30,116,88,.20)}
-.stat .k{
-  font-size:11px;
-  letter-spacing:.2em;
-  color:var(--miku-deep);
-  margin-bottom:12px;
-}
-.stat .v{
-  font-size:clamp(22px,3.2vw,32px);
+
+.num .v{
+  font-size:22px;
   font-weight:800;
-  line-height:1.15;
-  letter-spacing:-.01em;
-  color:var(--ink);
+  line-height:1.3;
   font-variant-numeric:tabular-nums;
 }
-.stat .v small{
-  font-size:.46em;
-  font-weight:600;
-  letter-spacing:.04em;
+
+.num .v small{
+  font-size:11px;
+  font-weight:500;
   color:var(--muted);
-  margin-left:.28em;
+  margin-left:3px;
 }
-.stat .n{
-  margin-top:10px;
+
+.num .d{
   font-size:12px;
-  line-height:1.8;
   color:var(--muted);
+  line-height:1.7;
 }
 
-/* ---------- 03 主线进度 ---------- */
-
-.quest{
+/* 列表 */
+.list{
   list-style:none;
-  position:relative;
-  --node:clamp(48px,5.5vw,58px);
-  --gap:clamp(16px,2.2vw,26px);
-  padding-left:calc(var(--node) + var(--gap));
 }
-.quest::before{
-  content:"";
-  position:absolute;
-  left:calc(var(--node) / 2 - 1px);
-  top:16px;
-  bottom:26px;
-  width:2px;
-  border-radius:2px;
-  background:linear-gradient(180deg,var(--miku),var(--lime) 46%,rgba(255,194,75,.85) 78%,rgba(14,58,49,.10));
+
+.list li{
+  padding:11px 0;
+  border-top:1px solid var(--line);
+  font-size:13.5px;
+  line-height:1.8;
 }
-.quest li{
-  position:relative;
-  padding-bottom:clamp(24px,3.6vh,34px);
-}
-.quest li:last-child{padding-bottom:0}
-.quest .node{
-  position:absolute;
-  left:calc(-1 * (var(--node) + var(--gap)));
-  top:2px;
-  width:var(--node);
-  height:var(--node);
-  border-radius:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#fff;
-  border:1px solid rgba(57,197,187,.34);
+
+.list li:first-child{border-top:0;padding-top:0}
+
+.list .d{
+  display:inline-block;
+  width:6.6em;
   color:var(--miku-deep);
-  font-weight:800;
-  font-size:clamp(12px,1.4vw,15px);
   font-variant-numeric:tabular-nums;
-  box-shadow:0 10px 22px rgba(31,167,158,.16);
+  font-size:12.5px;
 }
-.quest li .t{
-  display:block;
-  font-size:11px;
-  letter-spacing:.18em;
-  color:var(--muted);
-  margin-bottom:5px;
-  font-variant-numeric:tabular-nums;
-}
-.quest li h4{
-  font-size:clamp(15px,1.7vw,18px);
-  font-weight:700;
-  letter-spacing:.02em;
-  margin-bottom:5px;
-}
-.quest li p{
-  font-size:13px;
-  line-height:1.9;
-  color:var(--muted);
-  max-width:56ch;
-}
-.quest li.now .node{
-  background:linear-gradient(140deg,var(--sun),#FF9E4B);
-  border-color:#fff;
-  color:#fff;
-  box-shadow:0 14px 28px rgba(255,158,75,.34);
-}
-.quest li.now h4{color:#B96A12}
-.quest li.past .node{background:rgba(255,255,255,.66);color:#3E7F70}
-.quest li.future .node{opacity:.72}
 
-/* ---------- 04 成就 ---------- */
+.list b{font-weight:600}
 
-.ach-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:clamp(10px,1.6vw,16px);
-}
+.list li.now .d{color:#D9822B}
+
+/* 成就 */
 .ach{
-  background:var(--card);
-  border:1px solid #fff;
-  border-radius:18px;
-  padding:clamp(16px,2vw,20px);
-  box-shadow:0 12px 28px rgba(30,116,88,.10);
-  transition:transform .4s cubic-bezier(.2,.7,.3,1);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px 18px;
 }
-.ach:hover{transform:translateY(-4px)}
-.ach .ico{
-  width:34px;height:34px;
-  border-radius:11px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(57,197,187,.14);
-  color:var(--miku-deep);
-  margin-bottom:12px;
-}
-.ach .ico svg{width:18px;height:18px;display:block}
-.ach h4{font-size:13.5px;font-weight:700;letter-spacing:.02em;margin-bottom:4px}
-.ach p{font-size:11.5px;line-height:1.75;color:var(--muted)}
-.ach.hot{
-  background:linear-gradient(150deg,rgba(255,248,230,.95),rgba(255,255,255,.78));
-  border-color:rgba(255,194,75,.55);
-}
-.ach.hot .ico{background:rgba(255,194,75,.24);color:#B96A12}
 
-/* ---------- 05 抽卡 ---------- */
+.ach div{
+  font-size:13px;
+  line-height:1.7;
+}
 
-.draw-wrap{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:clamp(16px,2.4vw,22px);
-}
-.draw{
-  width:min(420px,100%);
-  aspect-ratio:1.42;
-  perspective:1200px;
-  cursor:pointer;
-  outline:none;
-}
-.draw-inner{
-  position:relative;
-  width:100%;height:100%;
-  transform-style:preserve-3d;
-  transition:transform .85s cubic-bezier(.2,.75,.25,1);
-}
-.draw.flipped .draw-inner{transform:rotateY(180deg)}
-.draw:focus-visible .draw-inner{box-shadow:0 0 0 3px rgba(57,197,187,.6);border-radius:22px}
-.face{
-  position:absolute;
-  inset:0;
-  border-radius:22px;
-  padding:clamp(22px,3.4vw,30px);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
-  overflow:hidden;
-}
-.face.front{
-  background:linear-gradient(155deg,rgba(255,255,255,.94),rgba(255,255,255,.72));
-  border:1px solid #fff;
-  box-shadow:0 24px 54px rgba(24,110,84,.18);
-}
-.face.front .k{
-  font-size:10.5px;
-  letter-spacing:.32em;
-  color:var(--miku-deep);
-  margin-bottom:14px;
-}
-.face.front .t{
-  font-size:clamp(19px,2.6vw,24px);
-  font-weight:800;
-  letter-spacing:.04em;
-}
-.face.front .h{margin-top:10px;font-size:12px;color:var(--muted)}
-.face.front::after{
-  content:"";
-  position:absolute;
-  width:220px;height:220px;
-  right:-70px;bottom:-90px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(143,212,74,.42),transparent 68%);
-}
-.face.back{
-  transform:rotateY(180deg);
-  border:2px solid rgba(57,197,187,.5);
-  background:linear-gradient(155deg,#ffffff,#F1FCE9);
-  box-shadow:0 24px 54px rgba(24,110,84,.20);
-}
-.face.back.ur{border-color:rgba(255,138,107,.65);background:linear-gradient(155deg,#fff8f4,#FFF1E6)}
-.face.back.ssr{border-color:rgba(255,194,75,.75);background:linear-gradient(155deg,#fffdf5,#FFF7E3)}
-.face.back.sr{border-color:rgba(57,197,187,.55)}
-.face.back .rarity{
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:.34em;
-  color:var(--miku-deep);
-  margin-bottom:8px;
-}
-.face.back .stars{
+.ach b{font-weight:600}
+
+.ach span{
+  display:block;
   font-size:12px;
-  letter-spacing:.42em;
-  color:var(--miku);
-  margin-bottom:14px;
-  text-indent:.42em;
+  color:var(--muted);
 }
-.face.back.ur .rarity{color:#D9552F}
-.face.back.ssr .rarity{color:#B98213}
-.face.back.ur .stars{color:#FF8A6B}
-.face.back.ssr .stars{color:#F2B23C}
-.face.back .text{
+
+/* 抽卡 */
+.draw-wrap{text-align:center}
+
+.draw-text{
+  max-width:28em;
+  margin:4px auto 0;
+  min-height:3.4em;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-family:var(--kai);
-  font-size:clamp(17px,2.2vw,21px);
-  line-height:1.85;
-  letter-spacing:.02em;
+  font-size:16px;
+  line-height:1.9;
   color:var(--ink);
 }
-.face.back .h{margin-top:16px;font-size:11px;letter-spacing:.16em;color:var(--muted)}
-.draw-hint{font-size:11.5px;letter-spacing:.16em;color:var(--muted)}
 
-/* ---------- 启动 & 加载 ---------- */
+.draw-rarity{
+  min-height:1.4em;
+  margin-top:4px;
+  font-size:11px;
+  letter-spacing:2px;
+  color:var(--miku-deep);
+}
+
+.draw-rarity.ur{color:#D9552F}
+.draw-rarity.ssr{color:#C58A20}
+
+.draw-btn{
+  margin-top:14px;
+  font-family:inherit;
+  font-size:13px;
+  letter-spacing:3px;
+  text-indent:3px;
+  color:var(--ink);
+  background:#fff;
+  border:1px solid rgba(18,55,45,.22);
+  border-radius:999px;
+  padding:11px 34px;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(30,116,88,.10);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+
+.draw-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(30,116,88,.16)}
+.draw-btn:focus-visible{outline:2px solid var(--miku);outline-offset:4px}
+
+.draw-count{margin-top:14px;font-size:12px;color:var(--muted)}
+
+/* 页脚 */
+footer{
+  margin-top:40px;
+  text-align:center;
+}
+
+.footer-title{
+  font-size:20px;
+  font-weight:800;
+}
+
+.footer-line{
+  margin-top:10px;
+  font-family:var(--kai);
+  font-size:14.5px;
+  line-height:2;
+  color:var(--ink-2);
+}
+
+.footer-sign{
+  margin-top:10px;
+  font-size:12.5px;
+  color:var(--muted);
+}
+
+.footer-meta{
+  margin-top:22px;
+  font-size:11.5px;
+  color:#7B9E8F;
+}
+
+/* ---------- 启动 ---------- */
 
 .launch{
   position:fixed;
@@ -672,59 +408,54 @@ section{
   align-items:center;
   justify-content:center;
   background:#FBFDF6;
-  transition:opacity .55s ease,visibility .55s;
+  transition:opacity .5s ease,visibility .5s;
 }
+
 .launch.hide{opacity:0;visibility:hidden;pointer-events:none}
-.launch-stage{display:none;text-align:center;width:min(400px,84vw)}
-.launch-stage.on{display:block}
+
+.stage{display:none;text-align:center;width:min(360px,84vw)}
+.stage.on{display:block}
 
 .start-btn{
   font-family:inherit;
   font-size:15px;
-  letter-spacing:.42em;
-  text-indent:.42em;
+  letter-spacing:6px;
+  text-indent:6px;
   color:var(--ink);
   background:#fff;
-  border:1px solid rgba(14,58,49,.26);
+  border:1px solid rgba(18,55,45,.22);
   border-radius:999px;
-  padding:17px 52px;
+  padding:15px 46px;
   cursor:pointer;
-  box-shadow:0 12px 30px rgba(30,116,88,.12);
-  transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
+  box-shadow:0 8px 22px rgba(30,116,88,.10);
+  transition:transform .2s ease,box-shadow .2s ease;
 }
-.start-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 18px 38px rgba(30,116,88,.18);
-  background:#F5FDEE;
-}
-.start-btn:focus-visible{outline:2px solid var(--miku);outline-offset:6px}
 
-.load-title{
-  font-size:13.5px;
-  letter-spacing:.12em;
-  color:var(--ink-2);
-}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(30,116,88,.16)}
+.start-btn:focus-visible{outline:2px solid var(--miku);outline-offset:5px}
+
+.load-title{font-size:13.5px;color:var(--ink-2)}
+
 .load-bar{
-  margin:20px 0 12px;
+  margin:18px 0 10px;
   height:2px;
   border-radius:99px;
-  background:rgba(14,58,49,.12);
+  background:rgba(18,55,45,.12);
   overflow:hidden;
 }
+
 .load-bar i{
   display:block;
   height:100%;
   width:0;
-  border-radius:99px;
-  background:linear-gradient(90deg,var(--miku),var(--lime));
-  transition:width .22s linear;
+  background:var(--miku);
+  transition:width .2s linear;
 }
+
 .load-meta{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  font-size:11px;
-  letter-spacing:.12em;
+  font-size:11.5px;
   color:var(--muted);
   font-variant-numeric:tabular-nums;
 }
@@ -736,159 +467,81 @@ section{
   inset:0;
   z-index:110;
   display:flex;
-  align-items:center;
+  align-items:flex-end;
   justify-content:center;
-  background:#FBFDF6;
+  padding:0 20px 16vh;
+  background:rgba(10,44,36,.30);
+  -webkit-backdrop-filter:blur(3px);
+  backdrop-filter:blur(3px);
   opacity:0;
   visibility:hidden;
   pointer-events:none;
-  transition:opacity .45s ease,visibility .45s;
+  transition:opacity .25s ease,visibility .25s;
 }
+
 .levelup.show{opacity:1;visibility:visible;pointer-events:auto}
-.lu-panel{
+
+.lu-card{
+  background:#fff;
+  border-radius:20px;
+  padding:20px 44px 18px;
   text-align:center;
-  transform:translateY(10px);
-  transition:transform .7s cubic-bezier(.2,.8,.2,1);
+  box-shadow:0 20px 48px rgba(12,70,52,.24);
+  transform:translateY(150%);
+  transition:transform .34s cubic-bezier(.16,.86,.3,1);
 }
-.levelup.show .lu-panel{transform:none}
-.lu-kicker{
-  font-size:12px;
-  letter-spacing:.62em;
-  text-indent:.62em;
+
+.levelup.show .lu-card{transform:translateY(0)}
+
+.lu-title{
+  font-size:12.5px;
   color:var(--muted);
 }
-.lu-num{
-  margin-top:16px;
-  font-family:var(--serif);
-  font-size:clamp(52px,9vw,84px);
-  line-height:1;
-  letter-spacing:.04em;
-  color:var(--ink);
-}
-.lu-btn{
-  margin-top:clamp(30px,6vh,44px);
-  font-family:inherit;
-  font-size:13px;
-  letter-spacing:.42em;
-  text-indent:.42em;
-  color:var(--ink);
-  background:#fff;
-  border:1px solid rgba(14,58,49,.26);
-  border-radius:999px;
-  padding:13px 40px;
-  cursor:pointer;
-  box-shadow:0 10px 24px rgba(30,116,88,.10);
-  transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
-}
-.lu-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 16px 32px rgba(30,116,88,.16);
-  background:#F5FDEE;
-}
-.lu-btn:focus-visible{outline:2px solid var(--miku);outline-offset:5px}
-/* ---------- 页脚 ---------- */
 
-footer{
-  padding:clamp(54px,9vh,90px) 0 clamp(44px,7vh,70px);
-  text-align:center;
-  border-top:1px solid rgba(14,58,49,.10);
-}
-.foot-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:8px 18px;
-  border-radius:999px;
-  background:#fff;
-  border:1px solid rgba(57,197,187,.38);
-  font-size:11px;
-  letter-spacing:.22em;
-  color:#1B7F78;
-  box-shadow:0 10px 24px rgba(31,167,158,.14);
-}
-.foot-title{
-  margin-top:20px;
-  font-size:clamp(20px,3.2vw,28px);
+.lu-lv{
+  margin:4px 0 2px;
+  font-size:34px;
   font-weight:800;
-  letter-spacing:.06em;
+  letter-spacing:1px;
+  font-variant-numeric:tabular-nums;
 }
-.foot-line{
-  margin-top:14px;
-  font-family:var(--kai);
-  font-size:clamp(13px,1.4vw,15.5px);
-  line-height:2.1;
+
+.lu-btn{
+  margin-top:12px;
+  font-family:inherit;
+  font-size:12.5px;
+  letter-spacing:3px;
+  text-indent:3px;
   color:var(--ink-2);
-  max-width:34em;
-  margin-left:auto;
-  margin-right:auto;
-}
-.foot-sign{
-  margin-top:18px;
-  font-size:12px;
-  letter-spacing:.14em;
-  color:var(--muted);
-}
-.foot-meta{
-  margin-top:clamp(26px,4.6vh,40px);
-  font-size:10.5px;
-  letter-spacing:.22em;
-  color:#6E9284;
-  line-height:2.1;
+  background:#fff;
+  border:1px solid rgba(18,55,45,.22);
+  border-radius:999px;
+  padding:8px 26px;
+  cursor:pointer;
 }
 
-/* ---------- 滚动出现 ---------- */
-
-.reveal{
-  opacity:0;
-  transform:translateY(20px);
-  transition:opacity .85s cubic-bezier(.2,.7,.3,1),transform .85s cubic-bezier(.2,.7,.3,1);
-  transition-delay:var(--d,0s);
-}
-.reveal.in{opacity:1;transform:none}
-
-/* ---------- 响应式 ---------- */
-
-@media (max-width:900px){
-  .hero-grid{grid-template-columns:1fr;gap:30px}
-  .hero{min-height:auto;padding-top:clamp(56px,9vh,80px)}
-  .boot{transform:none}
-  .boot:hover{transform:translateY(-3px)}
-  .panel-grid{grid-template-columns:1fr}
-  .stat-grid{grid-template-columns:repeat(2,1fr)}
-  .ach-grid{grid-template-columns:repeat(2,1fr)}
-}
+.lu-btn:hover{background:#F3FBEC}
 
 @media (max-width:560px){
-  .stat-grid{grid-template-columns:1fr}
-  .clock{gap:0}
-  .unit b{font-size:22px}
-  .unit i{font-size:9px}
-  .boot{transform:none;border-radius:20px}
-  .quest{--node:42px;--gap:14px}
-  .face{border-radius:18px}
-  .ach-grid{gap:10px}
-}
-
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .sky i,.chip .dot,.cue span{animation:none!important}
-  .reveal{opacity:1;transform:none;transition:none}
-  .bar .track i{transition:none}
-  .reveal.in .bar .track i{width:var(--v)}
-  .draw-inner,.launch,.levelup,.lu-panel,.lu-btn{transition:none}
+  .grid{grid-template-columns:repeat(2,1fr);gap:16px 12px}
+  .ach{grid-template-columns:1fr}
+  .list .d{width:5.6em}
+  .card{padding:20px 18px;border-radius:18px}
+  .clock-card{padding:18px 18px}
+  .clock{gap:10px}
+  .lu-card{padding:18px 34px 16px}
 }
 </style>
 </head>
 <body class="booting">
 <noscript><style>.launch,.levelup{display:none!important}body.booting{overflow:auto!important}</style></noscript>
 
-<!-- ==================== 启动 ==================== -->
+<!-- 启动 -->
 <div class="launch" id="launch">
-  <div class="launch-stage on" id="launch-start">
+  <div class="stage on" id="stage-start">
     <button class="start-btn" id="start-btn" type="button">启 动</button>
   </div>
-
-  <div class="launch-stage" id="launch-load" aria-live="polite">
+  <div class="stage" id="stage-load" aria-live="polite">
     <p class="load-title">《地球 Online》年度报告生成中</p>
     <div class="load-bar"><i id="load-fill"></i></div>
     <div class="load-meta">
@@ -898,335 +551,178 @@ footer{
   </div>
 </div>
 
-<!-- ==================== 升级弹窗 ==================== -->
-<div class="levelup" id="levelup" role="dialog" aria-modal="true" aria-labelledby="lu-kicker">
-  <div class="lu-panel">
-    <p class="lu-kicker" id="lu-kicker">等级提升</p>
-    <p class="lu-num">Lv.15</p>
+<!-- 升级弹窗 -->
+<div class="levelup" id="levelup" role="dialog" aria-modal="true" aria-labelledby="lu-title">
+  <div class="lu-card">
+    <p class="lu-title" id="lu-title">等级提升</p>
+    <p class="lu-lv">Lv.15</p>
     <button class="lu-btn" id="lu-btn" type="button">继 续</button>
   </div>
 </div>
-<div class="sky" aria-hidden="true"><i></i><i></i><i></i></div>
-<div class="grain" aria-hidden="true"></div>
 
-<!-- ==================== 首屏 ==================== -->
-<header class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <p class="chip"><span class="dot"></span>地球 ONLINE</p>
+<div class="wrap">
 
-      <h1>林芷萱</h1>
-      <p class="handle">@ CELESTIAVEIL</p>
+  <header class="hero">
+    <h1 class="name">林芷萱</h1>
+    <p class="handle">@ Celestiaveil</p>
 
-      <p class="hero-line">今天升到 15 级。<br>下面是这 15 年攒下的存档。</p>
+    <p class="lead">
+      今天升到 15 级。<br>
+      下面是这 15 年攒下的存档。
+    </p>
 
-      <div class="hero-tags">
-        <span class="tag">深圳</span>
-        <span class="tag">语文课代表</span>
-        <span class="tag warm">初三在读</span>
+    <div class="clock-card">
+      <div class="clock-head">
+        <span>在线时长</span>
+        <span id="sess">#0000 天</span>
       </div>
-    </div>
-
-    <aside class="boot" aria-label="在线时长">
-      <div class="boot-head">
-        <span class="label">在线时长</span>
-        <span class="sess" id="sess">SESSION #0000</span>
-      </div>
-
       <div class="clock" id="clock">
-        <div class="unit"><b id="u-y">--</b><i>年</i></div>
-        <div class="unit"><b id="u-d">--</b><i>天</i></div>
-        <div class="unit"><b id="u-h">--</b><i>时</i></div>
-        <div class="unit"><b id="u-m">--</b><i>分</i></div>
-        <div class="unit"><b id="u-s">--</b><i>秒</i></div>
+        <span><b id="u-y">--</b><i>年</i></span>
+        <span><b id="u-d">--</b><i>天</i></span>
+        <span><b id="u-h">--</b><i>时</i></span>
+        <span><b id="u-m">--</b><i>分</i></span>
+        <span><b id="u-s">--</b><i>秒</i></span>
       </div>
-
-      <div class="boot-foot">
+      <div class="clock-foot">
         <span class="lv" id="lv">Lv.14</span>
-        <span class="lv-note" id="lv-note">11.10 版本更新 · Lv.15</span>
+        <span id="lv-note">距离 Lv.15 还有 8 天</span>
       </div>
-    </aside>
-  </div>
-</header>
+    </div>
+  </header>
 
-<main>
+  <section class="card">
+    <div class="card-title">属性</div>
+    <div class="bar"><span class="n">文学</span><div class="t"><i style="--v:96%"></i></div><span class="v">96</span></div>
+    <div class="bar"><span class="n">审美</span><div class="t"><i style="--v:99%"></i></div><span class="v">99</span></div>
+    <div class="bar"><span class="n">宅家</span><div class="t"><i style="--v:94%"></i></div><span class="v">94</span></div>
+    <div class="bar"><span class="n">零食</span><div class="t"><i style="--v:88%"></i></div><span class="v">88</span></div>
+    <div class="bar"><span class="n">追番</span><div class="t"><i style="--v:91%"></i></div><span class="v">91</span></div>
+    <div class="bar warm"><span class="n">数学</span><div class="t"><i style="--v:58%"></i></div><span class="v">58</span></div>
+    <p class="bar-note">数学那一栏不是我打的，是她自己说的。</p>
+  </section>
 
-  <!-- ==================== 01 角色面板 ==================== -->
-  <section id="panel">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="sec-kicker">角色面板</span>
-        <h2 class="sec-title">属性</h2>
-        <p class="sec-note">分数是我瞎给的，看个乐。</p>
+  <section class="card intro">
+    <div class="card-title">她</div>
+    <p>看小说，追番，看综艺。一个暑假出门的次数，一只手数得过来。</p>
+    <p>但有人问起剧情，她能从头讲到剧场版，连制作公司都记得。</p>
+    <p>她说自己脾气不好。其实只是对敷衍的人没什么耐心。</p>
+    <div class="tags">
+      <span class="tag">京阿尼</span>
+      <span class="tag">言情小说</span>
+      <span class="tag">颜控</span>
+      <span class="tag">深夜刷番</span>
+      <span class="tag">薯片</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-title">2026</div>
+    <div class="grid">
+      <div class="num">
+        <div class="k">追番</div>
+        <div class="v">12<small>部</small></div>
+        <div class="d">平均三天一部，看完还得去找 OST。</div>
       </div>
-
-      <div class="panel-grid">
-        <div class="card reveal">
-          <h3 style="font-size:14px;font-weight:700;letter-spacing:.12em;color:var(--miku-deep)">加点情况</h3>
-          <div class="bars">
-            <div class="bar"><span class="name">文学天赋</span><div class="track"><i style="--v:96%"></i></div><b class="val">96</b></div>
-            <div class="bar"><span class="name">审美判定</span><div class="track"><i style="--v:99%"></i></div><b class="val">99</b></div>
-            <div class="bar"><span class="name">宅家续航</span><div class="track"><i style="--v:94%"></i></div><b class="val">94</b></div>
-            <div class="bar b4"><span class="name">零食消化</span><div class="track"><i style="--v:88%"></i></div><b class="val">88</b></div>
-            <div class="bar b5"><span class="name">深夜追番</span><div class="track"><i style="--v:91%"></i></div><b class="val">91</b></div>
-            <div class="bar b6"><span class="name">数学</span><div class="track"><i style="--v:58%"></i></div><b class="val">58</b></div>
-            <p class="bar-note">数学那一栏不是我打的，是她自己说的。</p>
-          </div>
-        </div>
-
-        <div class="card intro reveal" style="--d:.08s">
-          <p>看小说，追番，看综艺。一个暑假出门的次数，一只手数得过来。</p>
-          <p>但有人问起剧情，她能从头讲到剧场版，连制作公司都记得。</p>
-          <p>她说自己脾气不好。其实只是对敷衍的人没什么耐心。</p>
-          <div class="tags">
-            <span class="tag">京阿尼</span>
-            <span class="tag">言情小说</span>
-            <span class="tag">颜控</span>
-            <span class="tag">深夜刷番</span>
-            <span class="tag warm">薯片</span>
-          </div>
-        </div>
+      <div class="num">
+        <div class="k">小说</div>
+        <div class="v">∞<small>本</small></div>
+        <div class="d">统计不出来。</div>
+      </div>
+      <div class="num">
+        <div class="k">薯片</div>
+        <div class="v">6<small>包 / 3 天</small></div>
+        <div class="d">看综艺的时候必须有。</div>
+      </div>
+      <div class="num">
+        <div class="k">十一月第一杯奶茶</div>
+        <div class="v">1<small>杯</small></div>
+        <div class="d">芒果味。</div>
+      </div>
+      <div class="num">
+        <div class="k">最常说的话</div>
+        <div class="v">绷不住了</div>
+        <div class="d">第二名是「我去」。</div>
+      </div>
+      <div class="num">
+        <div class="k">出门次数</div>
+        <div class="v">≤5<small>次 / 暑假</small></div>
+        <div class="d">她自己说的。</div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== 02 赛季数据 ==================== -->
-  <section id="season">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="sec-kicker">2026</span>
-        <h2 class="sec-title">今年的一些数字</h2>
-        <p class="sec-note">数都是我瞎记的，不太准。</p>
-      </div>
+  <section class="card">
+    <div class="card-title">十五年</div>
+    <ul class="list">
+      <li><span class="d">2011.11</span><b>角色创建</b> · 汕头</li>
+      <li><span class="d">2015.09</span><b>幼儿园</b></li>
+      <li><span class="d">2018.09</span><b>小学</b> · 九年义务教育的上半场</li>
+      <li><span class="d">2024.09</span><b>初中</b> · 当上语文课代表</li>
+      <li><span class="d">2026.09</span><b>初三</b> · 作业变多</li>
+      <li class="now"><span class="d">2026.11</span><b>Lv.15</b> · 今天</li>
+      <li><span class="d">2027.06</span><b>中考</b></li>
+      <li><span class="d">2027.09</span><b>高中</b> · 换一张地图</li>
+      <li><span class="d">2029.11</span><b>十八岁</b></li>
+      <li><span class="d">2030.06</span><b>高考</b></li>
+      <li><span class="d">之后</span><b>更多地图</b></li>
+    </ul>
+  </section>
 
-      <div class="stat-grid">
-        <div class="stat reveal"><p class="k">追番</p><p class="v">12<small>部</small></p><p class="n">平均三天一部，看完还得去找 OST。</p></div>
-        <div class="stat reveal" style="--d:.06s"><p class="k">小说</p><p class="v">∞<small>本</small></p><p class="n">统计不出来。</p></div>
-        <div class="stat reveal" style="--d:.12s"><p class="k">薯片</p><p class="v">6<small>包 / 3 天</small></p><p class="n">看综艺的时候必须有。</p></div>
-        <div class="stat reveal" style="--d:.18s"><p class="k">十一月第一杯奶茶</p><p class="v">1<small>杯</small></p><p class="n">芒果味。</p></div>
-        <div class="stat reveal" style="--d:.24s"><p class="k">最常说的话</p><p class="v">绷不住了</p><p class="n">第二名是"我去"。</p></div>
-        <div class="stat reveal" style="--d:.3s"><p class="k">出门次数</p><p class="v">≤ 5<small>次 / 暑假</small></p><p class="n">她自己说的。</p></div>
-      </div>
+  <section class="card">
+    <div class="card-title">成就</div>
+    <div class="ach">
+      <div><b>文字的猎手</b><span>阅读量没法统计。</span></div>
+      <div><b>京阿尼认证观众</b><span>连制作公司都记得住。</span></div>
+      <div><b>美神降临见证者</b><span>好看的东西她一眼就能看出来。</span></div>
+      <div><b>语文课代表</b><span>管着全班的作业。</span></div>
+      <div><b>宅家冠军</b><span>暑假出门次数，五以内。</span></div>
+      <div><b>薯片终结者</b><span>三天六包。</span></div>
+      <div><b>芒果奶茶使者</b><span>十一月第一杯，一次没落。</span></div>
+      <div><b>Lv.15</b><span>今天解锁。</span></div>
     </div>
   </section>
 
-  <!-- ==================== 03 主线进度 ==================== -->
-  <section id="quest">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="sec-kicker">主线</span>
-        <h2 class="sec-title">十五年的进度条</h2>
-        <p class="sec-note">没有跳过键，只能一关一关来。</p>
-      </div>
-
-      <ol class="quest">
-        <li class="past reveal">
-          <span class="node">00</span>
-          <span class="t">2011.11.10 · 第 0 天</span>
-          <h4>角色创建</h4>
-          <p>汕头。刚出生的时候大概还看不出后来那么爱看书。</p>
-        </li>
-
-        <li class="past reveal">
-          <span class="node">03</span>
-          <span class="t">2015.09 · 第 3 年 10 个月</span>
-          <h4>幼儿园</h4>
-          <p>第一次学会一整天不回家。</p>
-        </li>
-
-        <li class="past reveal">
-          <span class="node">06</span>
-          <span class="t">2018.09 · 第 6 年 10 个月</span>
-          <h4>小学</h4>
-          <p>九年义务教育的上半场。看书看得比谁都快，就是从这里开始的。</p>
-        </li>
-
-        <li class="past reveal">
-          <span class="node">12</span>
-          <span class="t">2024.09 · 第 12 年 10 个月</span>
-          <h4>初中</h4>
-          <p>当上了语文课代表。从此批改和收作业都归她管。</p>
-        </li>
-
-        <li class="past reveal">
-          <span class="node">14</span>
-          <span class="t">2026.09 · 第 14 年 10 个月</span>
-          <h4>初三</h4>
-          <p>作业变多。不过她还是会在写完数学以后，打开一集番。</p>
-        </li>
-
-        <li class="now reveal">
-          <span class="node">15</span>
-          <span class="t">2026.11.10 · 第 15 年整</span>
-          <h4>Lv.15</h4>
-          <p>今天。</p>
-        </li>
-
-        <li class="future reveal">
-          <span class="node">15</span>
-          <span class="t">2027.06 · 第 15 年 7 个月</span>
-          <h4>中考</h4>
-          <p>下一个大关。</p>
-        </li>
-
-        <li class="future reveal">
-          <span class="node">15</span>
-          <span class="t">2027.09 · 第 15 年 10 个月</span>
-          <h4>高中</h4>
-          <p>换一张地图。据说图书馆更大，晚自习更长。</p>
-        </li>
-
-        <li class="future reveal">
-          <span class="node">18</span>
-          <span class="t">2029.11 · 第 18 年整</span>
-          <h4>十八岁</h4>
-          <p>成年。熬夜看小说这件事，从此不用偷偷摸摸。</p>
-        </li>
-
-        <li class="future reveal">
-          <span class="node">18</span>
-          <span class="t">2030.06 · 第 18 年 7 个月</span>
-          <h4>高考</h4>
-          <p>再一关。</p>
-        </li>
-
-        <li class="future reveal">
-          <span class="node">∞</span>
-          <span class="t">之后 · 未完</span>
-          <h4>更多地图</h4>
-          <p>存档会一直写下去。</p>
-        </li>
-      </ol>
+  <section class="card">
+    <div class="card-title">抽卡</div>
+    <div class="draw-wrap">
+      <p class="draw-text" id="draw-text">点一下按钮，抽一张祝福。</p>
+      <p class="draw-rarity" id="draw-rarity"></p>
+      <button class="draw-btn" id="draw" type="button">抽 一 张</button>
+      <p class="draw-count" id="draw-count" aria-live="polite">已抽 0 张</p>
     </div>
   </section>
 
-  <!-- ==================== 04 成就 ==================== -->
-  <section id="ach">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="sec-kicker">成就</span>
-        <h2 class="sec-title">已经拿到的</h2>
-        <p class="sec-note">有的是别人给的，有的是她自己挣的。</p>
-      </div>
-
-      <div class="ach-grid">
-        <div class="ach reveal">
-          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 5.5A1.5 1.5 0 015.5 4H11v16H5.5A1.5 1.5 0 014 18.5z"/><path d="M20 5.5A1.5 1.5 0 0018.5 4H13v16h5.5A1.5 1.5 0 0020 18.5z"/></svg></div>
-          <h4>文字的猎手</h4>
-          <p>阅读量没法统计。</p>
-        </div>
-
-        <div class="ach reveal" style="--d:.05s">
-          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M7 5v14M17 5v14M3 10h18M3 14h18"/></svg></div>
-          <h4>京阿尼认证观众</h4>
-          <p>连制作公司都记得住。</p>
-        </div>
-
-        <div class="ach reveal" style="--d:.1s">
-          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4 3 5-7 5 7 4-3-2 11H5z"/></svg></div>
-          <h4>美神降临见证者</h4>
-          <p>好看的东西她一眼就能看出来。</p>
-        </div>
-
-        <div class="ach reveal" style="--d:.15s">
-          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 3h9l4 4v14a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M8.5 12h7M8.5 16h4"/></svg></div>
-          <h4>语文课代表</h4>
-          <p>管着全班的作业。</p>
-        </div>
-
-        <div class="ach reveal" style="--d:.2s">
-          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6.5 10v10h11V10"/></svg></div>
-          <h4>宅家冠军</h4>
-          <p>暑假出门次数，五以内。</p>
-        </div>
-
-        <div class="ach reveal" style="--d:.25s">
-          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 8h10l-1 12H8z"/><path d="M9.5 8V5.5a2.5 2.5 0 015 0V8"/></svg></div>
-          <h4>薯片终结者</h4>
-          <p>三天六包。</p>
-        </div>
-
-        <div class="ach reveal" style="--d:.3s">
-          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 7h11l-1.5 11.5a2 2 0 01-2 1.5h-4a2 2 0 01-2-1.5z"/><path d="M9 7l1-3.5h5"/></svg></div>
-          <h4>芒果奶茶使者</h4>
-          <p>十一月第一杯，一次没落。</p>
-        </div>
-
-        <div class="ach hot reveal" style="--d:.35s">
-          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 6.2 6.4.5-4.9 4.2 1.5 6.3L12 16.8 6.4 20.2l1.5-6.3L3 9.7l6.4-.5z"/></svg></div>
-          <h4>Lv.15</h4>
-          <p>今天解锁。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== 05 抽卡 ==================== -->
-  <section id="gacha">
-    <div class="wrap">
-      <div class="sec-head reveal" style="text-align:center">
-        <span class="sec-kicker">抽卡</span>
-        <h2 class="sec-title">抽一张祝福</h2>
-        <p class="sec-note" style="margin-left:auto;margin-right:auto">八张，点一下翻面。抽完可以再抽。</p>
-      </div>
-
-      <div class="draw-wrap reveal">
-        <div class="draw" id="draw" role="button" tabindex="0" aria-label="抽一张生日祝福卡">
-          <div class="draw-inner">
-            <div class="face front">
-              <p class="k">2026.11.10</p>
-              <p class="t">点一下</p>
-              <p class="h">八张祝福，随便抽</p>
-            </div>
-            <div class="face back" id="face-back">
-              <p class="rarity" id="rarity">SSR</p>
-              <p class="stars" id="draw-stars">★★★</p>
-              <p class="text" id="draw-text">愿你想要的，都在路上。</p>
-              <p class="h" id="draw-h">再点一次，换一张</p>
-            </div>
-          </div>
-        </div>
-        <p class="draw-hint" id="draw-count" aria-live="polite">已抽 0 张</p>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  <div class="wrap">
-    <p class="foot-badge">2026.11.10</p>
-    <h2 class="foot-title">生日快乐，林芷萱</h2>
-    <p class="foot-line">
+  <footer>
+    <p class="footer-title">生日快乐，林芷萱</p>
+    <p class="footer-line">
       今年也祝你期中进步五十名。<br>
       番别烂尾，薯片别断货，想出门的时候随时喊我。
     </p>
-    <p class="foot-sign">—— 秋果</p>
-    <p class="foot-meta">
-      chenqiuguo.github.io/linzhixuan
-    </p>
-  </div>
-</footer>
+    <p class="footer-sign">—— 秋果</p>
+    <p class="footer-meta">2026.11.10 · chenqiuguo.github.io/linzhixuan</p>
+  </footer>
+
+</div>
 
 <script>
 (function () {
   "use strict";
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var TZ = 8 * 3600000; /* 全部按 +08:00 算，跟服务器一致 */
+  var TZ = 8 * 3600000;
 
-  /* ---------------- 0. 启动 → 加载 → 升级弹窗 ---------------- */
+  /* ---------- 启动 → 加载 → 弹窗 ---------- */
   var launch = document.getElementById("launch");
-  var launchStart = document.getElementById("launch-start");
-  var launchLoad = document.getElementById("launch-load");
+  var stageStart = document.getElementById("stage-start");
+  var stageLoad = document.getElementById("stage-load");
   var startBtn = document.getElementById("start-btn");
-  var loadFill = document.getElementById("load-fill");
-  var loadNum = document.getElementById("load-num");
-  var loadStep = document.getElementById("load-step");
+  var fill = document.getElementById("load-fill");
+  var num = document.getElementById("load-num");
+  var step = document.getElementById("load-step");
   var levelup = document.getElementById("levelup");
   var luBtn = document.getElementById("lu-btn");
 
-  var loadSteps = [
+  var steps = [
     [0, "读取角色数据…"],
     [24, "翻看追番和小说…"],
     [52, "整理十五年的存档…"],
@@ -1234,36 +730,29 @@ footer{
     [100, "完成"]
   ];
 
-  function paintLoad(p) {
-    if (loadFill) loadFill.style.width = p + "%";
-    if (loadNum) loadNum.textContent = p + "%";
-    if (loadStep) {
-      for (var i = loadSteps.length - 1; i >= 0; i--) {
-        if (p >= loadSteps[i][0]) {
-          if (loadStep.textContent !== loadSteps[i][1]) loadStep.textContent = loadSteps[i][1];
+  function paint(p) {
+    if (fill) fill.style.width = p + "%";
+    if (num) num.textContent = p + "%";
+    if (step) {
+      for (var i = steps.length - 1; i >= 0; i--) {
+        if (p >= steps[i][0]) {
+          if (step.textContent !== steps[i][1]) step.textContent = steps[i][1];
           break;
         }
       }
     }
   }
 
-  function showLevelup() {
-    if (!levelup) return;
-    levelup.classList.add("show");
-    if (luBtn) {
-      window.setTimeout(function () { luBtn.focus(); }, 260);
-    }
-  }
-
-  function hideLevelup() {
-    if (!levelup || !levelup.classList.contains("show")) return;
-    levelup.classList.remove("show");
-  }
-
   function endLaunch() {
     if (launch) launch.classList.add("hide");
     document.body.classList.remove("booting");
-    window.setTimeout(showLevelup, 560);
+    document.body.classList.add("loaded");
+    window.setTimeout(function () {
+      if (levelup) {
+        levelup.classList.add("show");
+        if (luBtn) window.setTimeout(function () { luBtn.focus(); }, 300);
+      }
+    }, 480);
   }
 
   var loading = false;
@@ -1272,29 +761,29 @@ footer{
     if (loading) return;
     loading = true;
 
-    if (!launchLoad) return endLaunch();
-    if (launchStart) launchStart.classList.remove("on");
-    launchLoad.classList.add("on");
+    if (!stageLoad) return endLaunch();
+    if (stageStart) stageStart.classList.remove("on");
+    stageLoad.classList.add("on");
 
-    var duration = reduceMotion ? 1000 : 2400;
+    var duration = reduceMotion ? 900 : 2400;
     var t0 = Date.now();
 
     var timer = window.setInterval(function () {
       var k = Math.min(1, (Date.now() - t0) / duration);
-      var eased = 1 - Math.pow(1 - k, 1.8);
-      paintLoad(Math.round(eased * 100));
+      paint(Math.round((1 - Math.pow(1 - k, 1.8)) * 100));
       if (k >= 1) {
         window.clearInterval(timer);
-        paintLoad(100);
-        window.setTimeout(endLaunch, 420);
+        paint(100);
+        window.setTimeout(endLaunch, 400);
       }
     }, 40);
   }
 
-  if (startBtn) {
-    startBtn.addEventListener("click", runLoading);
-  } else {
-    endLaunch();
+  if (startBtn) startBtn.addEventListener("click", runLoading);
+  else endLaunch();
+
+  function hideLevelup() {
+    if (levelup) levelup.classList.remove("show");
   }
 
   if (luBtn) luBtn.addEventListener("click", hideLevelup);
@@ -1307,18 +796,14 @@ footer{
     if (e.key === "Escape") hideLevelup();
   });
 
-  /* ---------------- 1. 地球 Online 在线时长 ---------------- */
-  var BIRTH = Date.UTC(2011, 10, 10, 0, 0, 0) - TZ; /* 2011-11-10 00:00 +08:00 */
+  /* ---------- 在线时长 ---------- */
+  var BIRTH = Date.UTC(2011, 10, 10, 0, 0, 0) - TZ;
 
-  function cnParts(ms) {
+  function cn(ms) {
     var d = new Date(ms + TZ);
     return {
-      y: d.getUTCFullYear(),
-      M: d.getUTCMonth(),
-      d: d.getUTCDate(),
-      h: d.getUTCHours(),
-      m: d.getUTCMinutes(),
-      s: d.getUTCSeconds()
+      y: d.getUTCFullYear(), M: d.getUTCMonth(), d: d.getUTCDate(),
+      h: d.getUTCHours(), m: d.getUTCMinutes(), s: d.getUTCSeconds()
     };
   }
 
@@ -1330,21 +815,19 @@ footer{
     s: document.getElementById("u-s"),
     sess: document.getElementById("sess"),
     lv: document.getElementById("lv"),
-    lvNote: document.getElementById("lv-note")
+    note: document.getElementById("lv-note")
   };
 
   function pad(n) { return n < 10 ? "0" + n : String(n); }
 
   function tick() {
     var now = Date.now();
-    var n = cnParts(now);
-    var b = cnParts(BIRTH);
+    var n = cn(now);
+    var b = cn(BIRTH);
 
-    /* 整岁数 */
     var age = n.y - b.y;
     if (n.M < b.M || (n.M === b.M && n.d < b.d)) age--;
 
-    /* 上一次生日那一刻 */
     var anniv = Date.UTC(b.y + age, b.M, b.d, 0, 0, 0) - TZ;
     var rest = now - anniv;
 
@@ -1361,25 +844,24 @@ footer{
       el.s.textContent = pad(secs);
     }
 
-    var totalDays = Math.floor((now - BIRTH) / 86400000);
     if (el.sess) {
-      el.sess.textContent = "SESSION #" + totalDays.toLocaleString("en-US");
+      el.sess.textContent = "#" + Math.floor((now - BIRTH) / 86400000).toLocaleString("en-US") + " 天";
     }
 
     if (el.lv) el.lv.textContent = "Lv." + age;
 
-    /* 生日当天开始，等级徽章变成"已更新" */
-    var next = Date.UTC(b.y + age + 1, b.M, b.d, 0, 0, 0) - TZ;
-    var leftDays = Math.max(0, Math.ceil((next - now) / 86400000));
+    var nextBirth = Date.UTC(b.y + age + 1, b.M, b.d, 0, 0, 0) - TZ;
+    var thisBirth = Date.UTC(b.y + age, b.M, b.d, 0, 0, 0) - TZ;
+    var left = Math.max(0, Math.ceil((nextBirth - now) / 86400000));
 
-    if (el.lvNote) {
-      if (age >= 15 && (now - Date.UTC(b.y + 15, b.M, b.d, 0, 0, 0) + TZ) < 366 * 86400000) {
-        el.lv.classList.add("up");
-        el.lvNote.textContent = "版本已更新 · 祝你生日快乐";
-      } else if (leftDays > 0 && leftDays <= 30) {
-        el.lvNote.textContent = "距离 Lv." + (age + 1) + " 版本更新：" + leftDays + " 天";
+    if (el.note) {
+      if (now - thisBirth < 0) {
+        el.note.textContent = "距离 Lv." + (age + 1) + " 还有 " + left + " 天";
+      } else if (now - thisBirth < 86400000) {
+        if (el.lv) el.lv.classList.add("up");
+        el.note.textContent = "今天升级了，生日快乐";
       } else {
-        el.lvNote.textContent = "下次版本更新：11.10 · Lv." + (age + 1);
+        el.note.textContent = "下一次升级还要 " + left + " 天";
       }
     }
   }
@@ -1387,84 +869,45 @@ footer{
   tick();
   window.setInterval(tick, 1000);
 
-  /* ---------------- 2. 滚动出现 ---------------- */
-  var reveals = [].slice.call(document.querySelectorAll(".reveal"));
-
-  if ("IntersectionObserver" in window && !reduceMotion) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in");
-          io.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: "0px 0px -10% 0px", threshold: 0.06 });
-
-    reveals.forEach(function (r) { io.observe(r); });
-  } else {
-    reveals.forEach(function (r) { r.classList.add("in"); });
-  }
-
-  /* ---------------- 3. 限定卡池 ---------------- */
+  /* ---------- 抽卡 ---------- */
   var pool = [
     { r: "SSR", t: "愿你这次期中，真的进步五十名。三十名太少了。" },
     { r: "SSR", t: "愿你追的番，一部都不会被腰斩。" },
     { r: "SSR", t: "愿你等的第二季，明年真的会播。" },
-    { r: "SR",  t: "愿你的奶茶，永远赶上第二杯半价。" },
-    { r: "SR",  t: "愿薯片永远买一送一，且永远吃不完。" },
-    { r: "SR",  t: "愿你手机的电量，永远不低于一半。" },
-    { r: "UR",  t: "愿美神常驻。愿你也被人这样惊叹一次。" },
-    { r: "UR",  t: "愿十五岁的你，被好好喜欢着。" }
+    { r: "SR", t: "愿你的奶茶，永远赶上第二杯半价。" },
+    { r: "SR", t: "愿薯片永远买一送一，且永远吃不完。" },
+    { r: "SR", t: "愿你手机的电量，永远不低于一半。" },
+    { r: "UR", t: "愿美神常驻。愿你也被人这样惊叹一次。" },
+    { r: "UR", t: "愿十五岁的你，被好好喜欢着。" }
   ];
 
   var draw = document.getElementById("draw");
-  var face = document.getElementById("face-back");
-  var rarityEl = document.getElementById("rarity");
-  var textEl = document.getElementById("draw-text");
-  var starsEl = document.getElementById("draw-stars");
-  var countEl = document.getElementById("draw-count");
+  var drawText = document.getElementById("draw-text");
+  var drawRarity = document.getElementById("draw-rarity");
+  var drawCount = document.getElementById("draw-count");
   var drawn = 0;
   var last = -1;
-  var flipped = false;
-  var rank = { SR: 2, SSR: 3, UR: 4 };
 
   function pick() {
-    var idx = Math.floor(Math.random() * pool.length);
-    if (idx === last) idx = (idx + 1) % pool.length;
-    last = idx;
-    return pool[idx];
-  }
-
-  function apply(card) {
-    rarityEl.textContent = card.r;
-    textEl.textContent = card.t;
-    face.className = "face back " + card.r.toLowerCase();
-    if (starsEl) {
-      starsEl.textContent = new Array((rank[card.r] || 3) + 1).join("★");
-    }
+    var i = Math.floor(Math.random() * pool.length);
+    if (i === last) i = (i + 1) % pool.length;
+    last = i;
+    return pool[i];
   }
 
   function flip() {
-    if (!draw) return;
     var card = pick();
-    apply(card);
-
-    if (!flipped) {
-      draw.classList.add("flipped");
-      draw.setAttribute("aria-label", "已抽到 " + card.r + "：" + card.t + "，再点一次换一张");
-      flipped = true;
-    } else {
-      /* 已经翻开过，就做一次轻微的回弹，表示又换了一张 */
-      draw.style.transition = "transform .28s ease";
-      draw.style.transform = "scale(.975)";
-      window.setTimeout(function () {
-        draw.style.transform = "";
-        draw.style.transition = "";
-      }, 200);
-    }
-
+    drawText.textContent = card.t;
+    drawRarity.textContent = card.r;
+    drawRarity.className = "draw-rarity " + card.r.toLowerCase();
     drawn++;
-    if (countEl) countEl.textContent = "已抽 " + drawn + " 张";
+    if (drawCount) drawCount.textContent = "已抽 " + drawn + " 张";
+    if (!reduceMotion) {
+      draw.animate(
+        [{ opacity: .35, transform: "translateY(6px) scale(.98)" }, { opacity: 1, transform: "none" }],
+        { duration: 260, easing: "ease-out" }
+      );
+    }
   }
 
   if (draw) {
