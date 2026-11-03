@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>林芷萱 · 生日快乐</title>
-<meta name="description" content="林芷萱的十五岁。在线时长、属性、这一年的数字，和十五年的进度。">
+<meta name="description" content="恭喜，地球 Online 完成升级。">
 <meta name="theme-color" content="#39C5BB">
 <meta property="og:title" content="林芷萱 · 生日快乐">
-<meta property="og:description" content="2026.11.10，Lv.15。">
+<meta property="og:description" content="恭喜，地球 Online 完成升级。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://chenqiuguo.github.io/linzhixuan/">
 <meta property="og:image" content="https://chenqiuguo.github.io/linzhixuan/preview.jpg">
@@ -19,7 +19,6 @@
 :root{
   --miku:#39C5BB;
   --miku-deep:#12726C;
-  --lime:#8FD44A;
   --ink:#0B3A33;
   --ink-2:#0F4A43;
   --muted:#2A6E65;
@@ -32,7 +31,7 @@
 
 *{margin:0;padding:0;box-sizing:border-box}
 
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%}
 
 body{
   font-family:var(--sans);
@@ -40,7 +39,11 @@ body{
   font-size:14.5px;
   line-height:1.9;
   background:#39C5BB;
-  background-attachment:fixed;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 20px;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
@@ -49,19 +52,11 @@ body.booting{overflow:hidden}
 
 .wrap{
   width:100%;
-  max-width:760px;
-  margin:0 auto;
-  padding:0 20px 60px;
-}
-
-/* ---------- 首屏 ---------- */
-
-.hero{
-  padding:56px 0 8px;
+  max-width:560px;
 }
 
 .name{
-  font-size:clamp(34px,7vw,46px);
+  font-size:clamp(32px,6.4vw,42px);
   font-weight:800;
   letter-spacing:1px;
   line-height:1.2;
@@ -74,16 +69,24 @@ body.booting{overflow:hidden}
 }
 
 .lead{
-  margin-top:18px;
+  margin-top:22px;
   font-family:var(--kai);
-  font-size:15.5px;
-  line-height:2;
+  font-size:clamp(16px,2.4vw,19px);
+  line-height:1.9;
   color:var(--ink);
+}
+
+.lead-2{
+  margin-top:8px;
+  font-family:var(--kai);
+  font-size:14.5px;
+  line-height:1.9;
+  color:var(--ink-2);
 }
 
 /* 在线时长 */
 .clock-card{
-  margin-top:22px;
+  margin-top:20px;
   background:var(--card);
   border:1.5px solid var(--card-edge);
   border-radius:20px;
@@ -107,7 +110,7 @@ body.booting{overflow:hidden}
   flex-wrap:wrap;
 }
 
-.clock span{
+.clock b{
   font-size:clamp(22px,4.6vw,30px);
   font-weight:800;
   font-variant-numeric:tabular-nums;
@@ -141,184 +144,11 @@ body.booting{overflow:hidden}
   padding:3px 12px;
 }
 
-.lv.up{background:#E8963C}
 
-/* ---------- 卡片 ---------- */
 
-.card{
-  margin-top:16px;
-  background:var(--card);
-  border:1.5px solid var(--card-edge);
-  border-radius:22px;
-  padding:22px 24px;
-  box-shadow:0 10px 26px rgba(9,84,74,.14);
-}
+/* ---------- 密码门 ---------- */
 
-.card-title{
-  font-size:14px;
-  font-weight:700;
-  color:var(--miku-deep);
-  letter-spacing:.5px;
-  margin-bottom:16px;
-}
-
-.card p + p{margin-top:10px}
-
-.intro p{
-  font-family:var(--kai);
-  font-size:15px;
-  line-height:2.05;
-  color:var(--ink-2);
-}
-
-.tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:16px;
-}
-
-.tag{
-  font-size:12.5px;
-  color:var(--ink-2);
-  background:rgba(248,254,252,.94);
-  border:1px solid rgba(18,114,108,.30);
-  border-radius:999px;
-  padding:5px 13px;
-}
-
-/* 属性条 */
-.bar{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  font-size:13px;
-  margin-bottom:11px;
-}
-
-.bar:last-of-type{margin-bottom:0}
-
-.bar .n{
-  width:4.6em;
-  color:var(--ink-2);
-  flex:none;
-}
-
-.bar .t{
-  flex:1;
-  height:8px;
-  border-radius:999px;
-  background:rgba(18,55,45,.09);
-  overflow:hidden;
-}
-
-.bar .t i{
-  display:block;
-  height:100%;
-  width:0;
-  border-radius:999px;
-  background:var(--miku);
-  transition:width 1s ease .2s;
-}
-
-.bar.warm .t i{background:#F0AE52}
-.bar .v{
-  width:2em;
-  text-align:right;
-  font-weight:700;
-  color:var(--ink);
-  flex:none;
-}
-
-.loaded .bar .t i{width:var(--v)}
-
-.bar-note{
-  margin-top:12px;
-  font-size:12px;
-  color:var(--muted);
-}
-
-/* 数字 */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-}
-
-.num .k{
-  font-size:12px;
-  color:var(--muted);
-}
-
-.num .v{
-  font-size:22px;
-  font-weight:800;
-  line-height:1.3;
-  font-variant-numeric:tabular-nums;
-}
-
-.num .v small{
-  font-size:11px;
-  font-weight:500;
-  color:var(--muted);
-  margin-left:3px;
-}
-
-.num .d{
-  font-size:12px;
-  color:var(--muted);
-  line-height:1.7;
-}
-
-/* 列表 */
-.list{
-  list-style:none;
-}
-
-.list li{
-  padding:11px 0;
-  border-top:1px solid var(--line);
-  font-size:13.5px;
-  line-height:1.8;
-}
-
-.list li:first-child{border-top:0;padding-top:0}
-
-.list .d{
-  display:inline-block;
-  width:6.6em;
-  color:var(--miku-deep);
-  font-variant-numeric:tabular-nums;
-  font-size:12.5px;
-}
-
-.list b{font-weight:600}
-
-.list li.now .d{color:#D9822B}
-
-/* 成就 */
-.ach{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px 18px;
-}
-
-.ach div{
-  font-size:13px;
-  line-height:1.7;
-}
-
-.ach b{font-weight:600}
-
-.ach span{
-  display:block;
-  font-size:12px;
-  color:var(--muted);
-}
-
-/* ---------- 启动 ---------- */
-
-.launch{
+.gate{
   position:fixed;
   inset:0;
   z-index:120;
@@ -326,31 +156,107 @@ body.booting{overflow:hidden}
   align-items:center;
   justify-content:center;
   background:#FBFDF6;
-  transition:opacity .5s ease,visibility .5s;
+  transition:opacity .45s ease,visibility .45s;
 }
 
-.launch.hide{opacity:0;visibility:hidden;pointer-events:none}
+.gate.hide{opacity:0;visibility:hidden;pointer-events:none}
 
-.stage{display:none;text-align:center;width:min(360px,84vw)}
-.stage.on{display:block}
+.gate-box{
+  width:min(300px,84vw);
+  text-align:center;
+}
 
-.start-btn{
-  font-family:inherit;
+.gate-title{
   font-size:15px;
+  font-weight:700;
+  color:var(--miku-deep);
+}
+
+.gate-sub{
+  margin-top:6px;
+  font-size:12.5px;
+  color:var(--muted);
+}
+
+.gate-input{
+  width:100%;
+  margin-top:22px;
+  padding:13px 16px;
+  font-family:inherit;
+  font-size:17px;
   letter-spacing:6px;
-  text-indent:6px;
+  text-align:center;
   color:var(--ink);
   background:#fff;
   border:1px solid rgba(18,55,45,.22);
-  border-radius:999px;
-  padding:15px 46px;
-  cursor:pointer;
-  box-shadow:0 8px 22px rgba(30,116,88,.10);
-  transition:transform .2s ease,box-shadow .2s ease;
+  border-radius:12px;
+  outline:none;
+  transition:border-color .2s ease,box-shadow .2s ease;
 }
 
-.start-btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(30,116,88,.16)}
-.start-btn:focus-visible{outline:2px solid var(--miku);outline-offset:5px}
+.gate-input::placeholder{
+  font-size:13px;
+  letter-spacing:1px;
+  color:#9DBBB2;
+}
+
+.gate-input:focus{
+  border-color:var(--miku);
+  box-shadow:0 0 0 3px rgba(57,197,187,.28);
+}
+
+.gate-btn{
+  width:100%;
+  margin-top:12px;
+  padding:12px;
+  font-family:inherit;
+  font-size:14px;
+  letter-spacing:5px;
+  text-indent:5px;
+  color:#fff;
+  background:var(--miku-deep);
+  border:0;
+  border-radius:999px;
+  cursor:pointer;
+  transition:background .2s ease,transform .2s ease;
+}
+
+.gate-btn:hover{background:#0E5F59}
+.gate-btn:active{transform:scale(.99)}
+
+.gate-err{
+  min-height:20px;
+  margin-top:10px;
+  font-size:12.5px;
+  color:#C0442C;
+}
+
+.gate-box.shake{animation:shake .32s ease}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-7px)}
+  75%{transform:translateX(7px)}
+}
+
+/* ---------- 加载 ---------- */
+
+.launch{
+  position:fixed;
+  inset:0;
+  z-index:110;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#FBFDF6;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .4s ease,visibility .4s;
+}
+
+.launch.show{opacity:1;visibility:visible}
+.launch.hide{opacity:0;visibility:hidden}
+
+.load-box{width:min(320px,82vw);text-align:center}
 
 .load-title{font-size:13.5px;color:var(--ink-2)}
 
@@ -378,88 +284,30 @@ body.booting{overflow:hidden}
   font-variant-numeric:tabular-nums;
 }
 
-/* ---------- 升级弹窗 ---------- */
-
-.levelup{
-  position:fixed;
-  inset:0;
-  z-index:110;
-  display:flex;
-  align-items:flex-start;
-  justify-content:center;
-  padding:12vh 20px 0;
-  background:rgba(10,44,36,.30);
-  -webkit-backdrop-filter:blur(3px);
-  backdrop-filter:blur(3px);
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-  transition:opacity .25s ease,visibility .25s;
-}
-
-.levelup.show{opacity:1;visibility:visible;pointer-events:auto}
-
-.lu-card{
-  background:#fff;
-  border-radius:20px;
-  padding:20px 44px 18px;
-  text-align:center;
-  box-shadow:0 20px 48px rgba(12,70,52,.24);
-  transform:translateY(72vh);
-  transition:transform .36s cubic-bezier(.16,.86,.3,1);
-}
-
-.levelup.show .lu-card{transform:translateY(0)}
-
-.lu-title{
-  font-size:12.5px;
-  color:var(--muted);
-}
-
-.lu-lv{
-  margin:4px 0 2px;
-  font-size:34px;
-  font-weight:800;
-  letter-spacing:1px;
-  font-variant-numeric:tabular-nums;
-}
-
-.lu-btn{
-  margin-top:12px;
-  font-family:inherit;
-  font-size:12.5px;
-  letter-spacing:3px;
-  text-indent:3px;
-  color:var(--ink-2);
-  background:#fff;
-  border:1px solid rgba(18,55,45,.22);
-  border-radius:999px;
-  padding:8px 26px;
-  cursor:pointer;
-}
-
-.lu-btn:hover{background:#F3FBEC}
-
 @media (max-width:560px){
-  .grid{grid-template-columns:repeat(2,1fr);gap:16px 12px}
-  .ach{grid-template-columns:1fr}
-  .list .d{width:5.6em}
-  .card{padding:20px 18px;border-radius:18px}
-  .clock-card{padding:18px 18px}
   .clock{gap:10px}
-  .lu-card{padding:18px 34px 16px}
+  .clock-card{padding:18px}
+  .clock-head{font-size:11.5px}
 }
 </style>
 </head>
 <body class="booting">
-<noscript><style>.launch,.levelup{display:none!important}body.booting{overflow:auto!important}</style></noscript>
+<noscript><style>.gate,.launch{display:none!important}body.booting{overflow:auto!important}</style></noscript>
 
-<!-- 启动 -->
+<!-- 密码门 -->
+<div class="gate" id="gate">
+  <form class="gate-box" id="gate-form" autocomplete="off">
+    <p class="gate-title">地球 Online</p>
+    <p class="gate-sub">请输入访问密码</p>
+    <input class="gate-input" id="pw" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="8 位数字" aria-label="访问密码" required>
+    <button class="gate-btn" type="submit">进 入</button>
+    <p class="gate-err" id="gate-err" role="alert"></p>
+  </form>
+</div>
+
+<!-- 加载 -->
 <div class="launch" id="launch">
-  <div class="stage on" id="stage-start">
-    <button class="start-btn" id="start-btn" type="button">启 动</button>
-  </div>
-  <div class="stage" id="stage-load" aria-live="polite">
+  <div class="load-box">
     <p class="load-title">《地球 Online》年度报告生成中</p>
     <div class="load-bar"><i id="load-fill"></i></div>
     <div class="load-meta">
@@ -469,138 +317,30 @@ body.booting{overflow:hidden}
   </div>
 </div>
 
-<!-- 升级弹窗 -->
-<div class="levelup" id="levelup" role="dialog" aria-modal="true" aria-labelledby="lu-title">
-  <div class="lu-card">
-    <p class="lu-title" id="lu-title">等级提升</p>
-    <p class="lu-lv">Lv.15</p>
-    <button class="lu-btn" id="lu-btn" type="button">继 续</button>
+<main class="wrap">
+  <h1 class="name">林芷萱</h1>
+  <p class="handle">@ Celestiaveil</p>
+
+  <p class="lead">恭喜，地球online完成升级，祝你生日快乐</p>
+  <p class="lead-2">以下是我总结的</p>
+
+  <div class="clock-card">
+    <div class="clock-head">
+      <span>在线时长</span>
+      <span id="sess">#0000 天</span>
+    </div>
+    <div class="clock" id="clock">
+      <span><b id="u-y">--</b><i>年</i></span>
+      <span><b id="u-d">--</b><i>天</i></span>
+      <span><b id="u-h">--</b><i>时</i></span>
+      <span><b id="u-m">--</b><i>分</i></span>
+      <span><b id="u-s">--</b><i>秒</i></span>
+    </div>
+    <div class="clock-foot">
+      <span class="lv">Lv.15</span>
+    </div>
   </div>
-</div>
-
-<div class="wrap">
-
-  <header class="hero">
-    <h1 class="name">林芷萱</h1>
-    <p class="handle">@ Celestiaveil</p>
-
-    <p class="lead">
-      今天你升到 15 级了，<br>
-      下面这些我翻了好久才整理出来，慢慢看
-    </p>
-
-    <div class="clock-card">
-      <div class="clock-head">
-        <span>在线时长</span>
-        <span id="sess">#0000 天</span>
-      </div>
-      <div class="clock" id="clock">
-        <span><b id="u-y">--</b><i>年</i></span>
-        <span><b id="u-d">--</b><i>天</i></span>
-        <span><b id="u-h">--</b><i>时</i></span>
-        <span><b id="u-m">--</b><i>分</i></span>
-        <span><b id="u-s">--</b><i>秒</i></span>
-      </div>
-      <div class="clock-foot">
-        <span class="lv" id="lv">Lv.14</span>
-        <span id="lv-note">距离 Lv.15 还有 8 天</span>
-      </div>
-    </div>
-  </header>
-
-  <section class="card">
-    <div class="card-title">属性</div>
-    <div class="bar"><span class="n">文学</span><div class="t"><i style="--v:96%"></i></div><span class="v">96</span></div>
-    <div class="bar"><span class="n">审美</span><div class="t"><i style="--v:99%"></i></div><span class="v">99</span></div>
-    <div class="bar"><span class="n">宅家</span><div class="t"><i style="--v:94%"></i></div><span class="v">94</span></div>
-    <div class="bar"><span class="n">零食</span><div class="t"><i style="--v:88%"></i></div><span class="v">88</span></div>
-    <div class="bar"><span class="n">追番</span><div class="t"><i style="--v:91%"></i></div><span class="v">91</span></div>
-    <div class="bar warm"><span class="n">数学</span><div class="t"><i style="--v:58%"></i></div><span class="v">58</span></div>
-    <p class="bar-note">分数我瞎打的，数学那栏是你自己说的</p>
-  </section>
-
-  <section class="card intro">
-    <div class="card-title">说说你</div>
-    <p>你看小说、追番、看综艺，一个暑假出门的次数，一只手就数得过来</p>
-    <p>但要是有人问起剧情，你能从第一集讲到剧场版，连制作公司都记得</p>
-    <p>你老说自己脾气不好，其实我觉得你只是对敷衍的人没耐心</p>
-    <div class="tags">
-      <span class="tag">京阿尼</span>
-      <span class="tag">言情小说</span>
-      <span class="tag">颜控</span>
-      <span class="tag">深夜刷番</span>
-      <span class="tag">薯片</span>
-    </div>
-  </section>
-
-  <section class="card">
-    <div class="card-title">2026</div>
-    <div class="grid">
-      <div class="num">
-        <div class="k">追番</div>
-        <div class="v">12<small>部</small></div>
-        <div class="d">平均三天一部，看完还得去翻 OST</div>
-      </div>
-      <div class="num">
-        <div class="k">小说</div>
-        <div class="v">∞<small>本</small></div>
-        <div class="d">统计不出来，反正我追不上</div>
-      </div>
-      <div class="num">
-        <div class="k">薯片</div>
-        <div class="v">6<small>包 / 3 天</small></div>
-        <div class="d">看综艺的标配，一天两包</div>
-      </div>
-      <div class="num">
-        <div class="k">十一月第一杯奶茶</div>
-        <div class="v">1<small>杯</small></div>
-        <div class="d">芒果味，准时到账</div>
-      </div>
-      <div class="num">
-        <div class="k">最常说的话</div>
-        <div class="v">绷不住了</div>
-        <div class="d">第二名是「我去」</div>
-      </div>
-      <div class="num">
-        <div class="k">出门次数</div>
-        <div class="v">≤5<small>次 / 暑假</small></div>
-        <div class="d">你自己说的，不是我编的</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="card">
-    <div class="card-title">十五年</div>
-    <ul class="list">
-      <li><span class="d">2011.11</span><b>角色创建</b> · 汕头</li>
-      <li><span class="d">2015.09</span><b>幼儿园</b></li>
-      <li><span class="d">2018.09</span><b>小学</b> · 九年义务教育的上半场</li>
-      <li><span class="d">2024.09</span><b>初中</b> · 语文课代表（收作业的那个）</li>
-      <li><span class="d">2026.09</span><b>初三</b> · 作业变多</li>
-      <li class="now"><span class="d">2026.11</span><b>Lv.15</b> · 今天</li>
-      <li><span class="d">2027.06</span><b>中考</b> · 别慌</li>
-      <li><span class="d">2027.09</span><b>高中</b> · 换一张地图</li>
-      <li><span class="d">2029.11</span><b>十八岁</b></li>
-      <li><span class="d">2030.06</span><b>高考</b></li>
-      <li><span class="d">之后</span><b>更多地图</b></li>
-    </ul>
-  </section>
-
-  <section class="card">
-    <div class="card-title">成就</div>
-    <div class="ach">
-      <div><b>文字的猎手</b><span>看小说比我快多了</span></div>
-      <div><b>京阿尼认证观众</b><span>连制作公司都记得住</span></div>
-      <div><b>美神降临见证者</b><span>好看的角色你一眼就看得出来</span></div>
-      <div><b>语文课代表</b><span>全班的作业都在你这儿</span></div>
-      <div><b>宅家冠军</b><span>暑假出门次数，五以内</span></div>
-      <div><b>薯片终结者</b><span>三天六包，我服</span></div>
-      <div><b>芒果奶茶使者</b><span>十一月第一杯，一次没落</span></div>
-      <div><b>Lv.15</b><span>今天，就这一次</span></div>
-    </div>
-  </section>
-
-</div>
+</main>
 
 <script>
 (function () {
@@ -609,16 +349,17 @@ body.booting{overflow:hidden}
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var TZ = 8 * 3600000;
 
-  /* ---------- 启动 → 加载 → 弹窗 ---------- */
+  /* ---------- 密码门 ---------- */
+  var PASSWORD = "20111110";
+
+  var gate = document.getElementById("gate");
+  var form = document.getElementById("gate-form");
+  var pw = document.getElementById("pw");
+  var err = document.getElementById("gate-err");
   var launch = document.getElementById("launch");
-  var stageStart = document.getElementById("stage-start");
-  var stageLoad = document.getElementById("stage-load");
-  var startBtn = document.getElementById("start-btn");
   var fill = document.getElementById("load-fill");
   var num = document.getElementById("load-num");
   var step = document.getElementById("load-step");
-  var levelup = document.getElementById("levelup");
-  var luBtn = document.getElementById("lu-btn");
 
   var steps = [
     [0, "读取角色数据…"],
@@ -641,16 +382,9 @@ body.booting{overflow:hidden}
     }
   }
 
-  function endLaunch() {
+  function finish() {
     if (launch) launch.classList.add("hide");
     document.body.classList.remove("booting");
-    document.body.classList.add("loaded");
-    window.setTimeout(function () {
-      if (levelup) {
-        levelup.classList.add("show");
-        if (luBtn) window.setTimeout(function () { luBtn.focus(); }, 300);
-      }
-    }, 480);
   }
 
   var loading = false;
@@ -659,11 +393,8 @@ body.booting{overflow:hidden}
     if (loading) return;
     loading = true;
 
-    if (!stageLoad) return endLaunch();
-    if (stageStart) stageStart.classList.remove("on");
-    stageLoad.classList.add("on");
-
-    var duration = reduceMotion ? 900 : 2400;
+    if (launch) launch.classList.add("show");
+    var duration = reduceMotion ? 900 : 2200;
     var t0 = Date.now();
 
     var timer = window.setInterval(function () {
@@ -672,27 +403,32 @@ body.booting{overflow:hidden}
       if (k >= 1) {
         window.clearInterval(timer);
         paint(100);
-        window.setTimeout(endLaunch, 400);
+        window.setTimeout(finish, 380);
       }
     }, 40);
   }
 
-  if (startBtn) startBtn.addEventListener("click", runLoading);
-  else endLaunch();
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!pw) return;
 
-  function hideLevelup() {
-    if (levelup) levelup.classList.remove("show");
-  }
-
-  if (luBtn) luBtn.addEventListener("click", hideLevelup);
-  if (levelup) {
-    levelup.addEventListener("click", function (e) {
-      if (e.target === levelup) hideLevelup();
+      if (pw.value.trim() === PASSWORD) {
+        if (err) err.textContent = "";
+        if (gate) gate.classList.add("hide");
+        runLoading();
+      } else {
+        if (err) err.textContent = "密码不对，再想想";
+        var box = form;
+        box.classList.remove("shake");
+        void box.offsetWidth;
+        box.classList.add("shake");
+        pw.select();
+      }
     });
   }
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") hideLevelup();
-  });
+
+  if (pw) window.setTimeout(function () { pw.focus(); }, 200);
 
   /* ---------- 在线时长 ---------- */
   var BIRTH = Date.UTC(2011, 10, 10, 0, 0, 0) - TZ;
@@ -711,9 +447,7 @@ body.booting{overflow:hidden}
     h: document.getElementById("u-h"),
     m: document.getElementById("u-m"),
     s: document.getElementById("u-s"),
-    sess: document.getElementById("sess"),
-    lv: document.getElementById("lv"),
-    note: document.getElementById("lv-note")
+    sess: document.getElementById("sess")
   };
 
   function pad(n) { return n < 10 ? "0" + n : String(n); }
@@ -746,27 +480,10 @@ body.booting{overflow:hidden}
       el.sess.textContent = "#" + Math.floor((now - BIRTH) / 86400000).toLocaleString("en-US") + " 天";
     }
 
-    if (el.lv) el.lv.textContent = "Lv." + age;
-
-    var nextBirth = Date.UTC(b.y + age + 1, b.M, b.d, 0, 0, 0) - TZ;
-    var thisBirth = Date.UTC(b.y + age, b.M, b.d, 0, 0, 0) - TZ;
-    var left = Math.max(0, Math.ceil((nextBirth - now) / 86400000));
-
-    if (el.note) {
-      if (now - thisBirth < 0) {
-        el.note.textContent = "距离 Lv." + (age + 1) + " 还有 " + left + " 天";
-      } else if (now - thisBirth < 86400000) {
-        if (el.lv) el.lv.classList.add("up");
-        el.note.textContent = "今天升级了，生日快乐";
-      } else {
-        el.note.textContent = "下一次升级还要 " + left + " 天";
-      }
-    }
   }
 
   tick();
   window.setInterval(tick, 1000);
-
 })();
 </script>
 </body>
