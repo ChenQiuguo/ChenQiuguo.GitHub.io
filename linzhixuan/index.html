@@ -248,7 +248,7 @@ body.booting{overflow:hidden}
 .launch{
   position:fixed;
   inset:0;
-  z-index:110;
+  z-index:130;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -258,7 +258,7 @@ body.booting{overflow:hidden}
   transition:opacity .4s ease,visibility .4s;
 }
 
-.launch.show{opacity:1;visibility:visible}
+.launch.show{opacity:1;visibility:visible;transition:none}
 .launch.hide{opacity:0;visibility:hidden}
 
 .load-box{width:min(320px,82vw);text-align:center}
@@ -319,7 +319,7 @@ body.booting{overflow:hidden}
     <p class="load-title">《地球 Online》年度报告生成中</p>
     <div class="load-bar"><i id="load-fill"></i></div>
     <div class="load-meta">
-      <span id="load-step">读取角色数据…</span>
+      <span id="load-step">连接服务器…</span>
       <span id="load-num">0%</span>
     </div>
   </div>
@@ -369,10 +369,10 @@ body.booting{overflow:hidden}
   var step = document.getElementById("load-step");
 
   var steps = [
-    [0, "读取角色数据…"],
-    [24, "翻看追番和小说…"],
-    [52, "整理十五年的存档…"],
-    [78, "生成年度报告…"],
+    [0, "连接服务器…"],
+    [26, "读取角色数据…"],
+    [54, "计算在线时长…"],
+    [80, "生成年度报告…"],
     [100, "完成"]
   ];
 
