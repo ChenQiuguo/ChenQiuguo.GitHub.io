@@ -76,14 +76,6 @@ body.booting{overflow:hidden}
   color:var(--ink);
 }
 
-.lead-2{
-  margin-top:8px;
-  font-family:var(--kai);
-  font-size:14.5px;
-  line-height:1.9;
-  color:var(--ink-2);
-}
-
 /* 在线时长 */
 .clock-card{
   margin-top:20px;
@@ -178,13 +170,31 @@ body.booting{overflow:hidden}
   color:var(--muted);
 }
 
+.gate-field{
+  position:relative;
+  margin-top:22px;
+}
+
+.gate-ph{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12.5px;
+  color:#93B3A9;
+  pointer-events:none;
+  transition:opacity .15s ease;
+}
+
+.gate-ph.off{opacity:0}
+
 .gate-input{
   width:100%;
-  margin-top:22px;
   padding:13px 16px;
   font-family:inherit;
   font-size:17px;
-  letter-spacing:6px;
+  letter-spacing:3px;
   text-align:center;
   color:var(--ink);
   background:#fff;
@@ -194,11 +204,6 @@ body.booting{overflow:hidden}
   transition:border-color .2s ease,box-shadow .2s ease;
 }
 
-.gate-input::placeholder{
-  font-size:13px;
-  letter-spacing:1px;
-  color:#9DBBB2;
-}
 
 .gate-input:focus{
   border-color:var(--miku);
@@ -297,9 +302,12 @@ body.booting{overflow:hidden}
 <!-- 密码门 -->
 <div class="gate" id="gate">
   <form class="gate-box" id="gate-form" autocomplete="off">
-    <p class="gate-title">地球 Online</p>
+    <p class="gate-title">地球Online年度报告</p>
     <p class="gate-sub">请输入访问密码</p>
-    <input class="gate-input" id="pw" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="8 位数字" aria-label="访问密码" required>
+    <div class="gate-field">
+      <input class="gate-input" id="pw" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" aria-label="访问密码" required>
+      <span class="gate-ph" id="gate-ph" aria-hidden="true">你的8位生日</span>
+    </div>
     <button class="gate-btn" type="submit">进 入</button>
     <p class="gate-err" id="gate-err" role="alert"></p>
   </form>
@@ -322,7 +330,6 @@ body.booting{overflow:hidden}
   <p class="handle">@ Celestiaveil</p>
 
   <p class="lead">恭喜，地球online完成升级，祝你生日快乐</p>
-  <p class="lead-2">以下是我总结的</p>
 
   <div class="clock-card">
     <div class="clock-head">
@@ -425,6 +432,13 @@ body.booting{overflow:hidden}
         box.classList.add("shake");
         pw.select();
       }
+    });
+  }
+
+  var ph = document.getElementById("gate-ph");
+  if (pw && ph) {
+    pw.addEventListener("input", function () {
+      ph.classList.toggle("off", pw.value.length > 0);
     });
   }
 
