@@ -41,7 +41,6 @@ body{
   background:#39C5BB;
   min-height:100vh;
   display:flex;
-  align-items:center;
   justify-content:center;
   padding:40px 20px;
   -webkit-font-smoothing:antialiased;
@@ -53,6 +52,7 @@ body.booting{overflow:hidden}
 .wrap{
   width:100%;
   max-width:560px;
+  margin:auto;
 }
 
 .name{
@@ -76,15 +76,70 @@ body.booting{overflow:hidden}
   color:var(--ink);
 }
 
-/* 在线时长 */
-.clock-card{
-  margin-top:20px;
+/* 卡片 */
+.card{
+  margin-top:18px;
   background:var(--card);
   border:1.5px solid var(--card-edge);
   border-radius:20px;
   padding:20px 22px;
   box-shadow:0 10px 26px rgba(9,84,74,.16);
 }
+
+.card-title{
+  font-size:13.5px;
+  font-weight:700;
+  color:var(--miku-deep);
+  margin-bottom:14px;
+}
+
+/* 几件事 */
+.moments{
+  list-style:none;
+  counter-reset:m;
+}
+
+.moments li{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding:11px 0;
+  border-top:1px solid var(--line);
+  font-size:14.5px;
+  line-height:1.85;
+  color:var(--ink-2);
+}
+
+.moments li:first-child{border-top:0;padding-top:0}
+
+.moments .txt{flex:1 1 auto;min-width:0}
+
+.moments li::before{
+  counter-increment:m;
+  content:counter(m);
+  flex:0 0 auto;
+  width:20px;
+  height:20px;
+  margin-top:4px;
+  border-radius:50%;
+  background:rgba(57,197,187,.20);
+  color:var(--miku-deep);
+  font-size:11px;
+  font-weight:700;
+  line-height:20px;
+  text-align:center;
+}
+
+/* 想对你说的话 */
+.words{
+  font-family:var(--kai);
+  font-size:15.5px;
+  line-height:2.1;
+  color:var(--ink-2);
+  text-align:left;
+}
+
+.aside{color:#4E8074}
 
 .clock-head{
   display:flex;
@@ -291,8 +346,10 @@ body.booting{overflow:hidden}
 
 @media (max-width:560px){
   .clock{gap:10px}
-  .clock-card{padding:18px}
+  .card{padding:18px 18px}
   .clock-head{font-size:11.5px}
+  .words{font-size:15px;text-align:left}
+  .moments li{font-size:14px}
 }
 </style>
 </head>
@@ -331,7 +388,7 @@ body.booting{overflow:hidden}
 
   <p class="lead">恭喜，地球online完成升级，祝你生日快乐</p>
 
-  <div class="clock-card">
+  <div class="card">
     <div class="clock-head">
       <span>在线时长</span>
       <span id="sess">#0000 天</span>
@@ -347,6 +404,25 @@ body.booting{overflow:hidden}
       <span class="lv">Lv.15</span>
     </div>
   </div>
+
+  <section class="card">
+    <h2 class="card-title">关于你印象深刻的几件事</h2>
+    <ol class="moments">
+      <li><span class="txt">开学初你直接就能叫出我的名字</span></li>
+      <li><span class="txt">主动把作文杂志给我</span></li>
+      <li><span class="txt">微信上聊得情投意合<span class="aside">（有一次聊了快一个小时）</span></span></li>
+      <li><span class="txt">同意和我做同桌<span class="aside">（但因为积分不够迟到了一个月）</span></span></li>
+      <li><span class="txt">坐上同桌后会在我旁边哼儿歌<span class="aside">（其实挺可爱的）</span></span></li>
+      <li><span class="txt">在我答对问题的时候会阴阳怪气地夸我<span class="aside">（要继续这样夸我呀）</span></span></li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2 class="card-title">想对你说的话</h2>
+    <p class="words">
+      和你坐同桌两周来，感觉挺幸福的，上课就从来没有无聊过，有什么有趣的可以和你分享，你也会主动找我分享；作业或者测试什么的，不会的可以直接看你的<span class="aside">（年级第九的答案还是比较权威的，虽然有的时候你不让）</span>；感觉你挺可爱的呀<span class="aside">（我可以这么说吗）</span>，已经15岁了<span class="aside">（你看这里的时候肯定是有的）</span>，竟然还会哼俄歌、洗脑广告曲，反差萌
+    </p>
+  </section>
 </main>
 
 <script>
