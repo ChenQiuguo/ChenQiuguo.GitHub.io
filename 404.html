@@ -64,11 +64,10 @@
   a:hover{background:rgba(232,207,160,.14);color:#fff6e4}
 </style>
 <script>
-  /* 旧链接 /LinZhixuan/ 大小写不一致时，转到新的小写地址 */
+  /* 旧地址 /linzhixuan/ 和 /LinZhixuan/ 都转到新地址 */
   (function () {
-    var p = location.pathname;
-    if (/^\/LinZhixuan(\/|$)/i.test(p)) {
-      location.replace(p.replace(/^\/LinZhixuan/i, "/linzhixuan") + location.search + location.hash);
+    if (/^\/linzhixuan\/?$/i.test(location.pathname)) {
+      location.replace("/linzhixuanE68891E788B1E4BDA0/" + location.search + location.hash);
     }
   })();
 </script>
@@ -80,7 +79,7 @@
     <p class="desc">链接可能写错了，或者这一页已经被换走了。<br>要不先回首页看看？</p>
     <nav class="links">
       <a href="/">回首页</a>
-      <a href="/linzhixuan/">去生日页</a>
+      <a href="/linzhixuanE68891E788B1E4BDA0/">去生日页</a>
     </nav>
   </main>
 </body>
